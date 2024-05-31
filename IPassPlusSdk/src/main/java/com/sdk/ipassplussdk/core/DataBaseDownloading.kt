@@ -2,6 +2,7 @@ package com.sdk.ipassplussdk.core
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion
 import com.sdk.ipassplussdk.ui.FaceScannerData
@@ -29,8 +30,10 @@ object DataBaseDownloading {
 
             override fun onCompleted(status: Boolean, message: String?) {
                 if (status) {
+                    Log.e("onCompleted## ",message!!)
                     configureFaceScanner(context, completion)
                 } else {
+                    Log.e("onCompleted##1 ",message!!)
                     ProgressManager.dismissProgress()
                     completion.onCompleted(status, message)
                 }
@@ -46,8 +49,11 @@ object DataBaseDownloading {
         completion: InitializeDatabaseCompletion
     ) {
         FaceScannerData.configureFaceScanner(context) {
+            Log.e("configureFaceScanner## ","configureFaceScanner")
             ProgressManager.dismissProgress()
+            Log.e("dismissProgress## ","dismissProgress")
             if (it.equals("FaceScannerConfigured")) {
+                Log.e("FaceScannerConfigured## ","FaceScannerConfigured")
                 completion.onCompleted(true, "Database Initialized Successfully")
             } else {
 //                completion.onCompleted(false, it)

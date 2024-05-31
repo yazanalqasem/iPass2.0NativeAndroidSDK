@@ -97,7 +97,7 @@ object InitializeDatabase {
 //            return@setLocalizationCallback null
 //        }
         completion.onCompleted(true,"Success")
-
+Log.e("completed","completed")
 //        FaceScannerData.configureFaceScanner(context, callback)
 
     }
