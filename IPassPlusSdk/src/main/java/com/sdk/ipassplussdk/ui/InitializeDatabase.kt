@@ -53,21 +53,25 @@ object InitializeDatabase {
             override fun onPrepareProgressChanged(progress: Int) {
                 // getting progress
                 completion.onProgressChanged(progress)
+                Log.e("progressChanged## ",progress.toString())
             }
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onPrepareCompleted(status: Boolean, error: DocumentReaderException?) {
+                Log.e("onPrepareCompleted","onPrepareCompleted"+status+"==="+error?.message.toString()+"==="+error.toString())
                 // database was prepared
                 DocumentReader.Instance()
                     .initializeReader(context, DocReaderConfig(license)) {
                             success, error_initializeReader ->
 
 //                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
-
+                        Log.e("initialized","initialized"+success+"=="+error_initializeReader.toString())
                         if (success) {
+                            Log.e("success","success")
                             onInitComplete(completion)
                         }
                         else {
+                            Log.e("error","error_initializeReader?.message.toString()")
                             completion.onCompleted(false, error_initializeReader?.message.toString())
                         }
                     }
