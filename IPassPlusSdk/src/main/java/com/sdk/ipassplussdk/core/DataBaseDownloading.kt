@@ -56,7 +56,8 @@ object DataBaseDownloading {
                 Log.e("FaceScannerConfigured## ","FaceScannerConfigured")
                 completion.onCompleted(true, "Database Initialized Successfully")
             } else {
-//                completion.onCompleted(false, it)
+                Log.e("FaceScannerNotConfigured## ","FaceScannerNotConfigured $it")
+                completion.onCompleted(false, "FaceScannerNotConfigured")
             }
         }
     }

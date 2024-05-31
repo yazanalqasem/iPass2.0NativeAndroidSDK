@@ -23,6 +23,9 @@ object FaceScannerData {
             Amplify.configure(context)
             callback.invoke("FaceScannerConfigured")
         } catch (e: AmplifyException) {
+            Log.e("AmplifyException## ","AmplifyException  -  ${e.message}")
+            Log.e("AmplifyException## ","AmplifyException  -  ${e.recoverySuggestion}")
+            Log.e("AmplifyException## ","AmplifyException  -  ${e.localizedMessage}")
             callback.invoke("Error Initializing Face Scanner")
         }
     }
