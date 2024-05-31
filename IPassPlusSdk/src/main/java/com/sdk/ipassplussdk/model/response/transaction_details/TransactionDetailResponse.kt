@@ -1,5 +1,6 @@
 package com.sdk.ipassplussdk.model.response.transaction_details
 
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 
@@ -7,7 +8,7 @@ data class TransactionDetailResponse (
 
     @SerializedName("Apistatus"  ) var Apistatus  : Boolean? = null,
     @SerializedName("Apimessage" ) var Apimessage : String?  = null,
-    @SerializedName("data"       ) var data       : Data?    = Data()
+    @SerializedName("data"       ) var data       : JsonObject?    = null
 
 )
 

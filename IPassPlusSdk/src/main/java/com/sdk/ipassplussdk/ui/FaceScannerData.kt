@@ -23,9 +23,9 @@ object FaceScannerData {
             Amplify.configure(context)
             callback.invoke("FaceScannerConfigured")
         } catch (e: AmplifyException) {
-            Log.e("AmplifyException## ","AmplifyException  -  ${e.message}")
-            Log.e("AmplifyException## ","AmplifyException  -  ${e.recoverySuggestion}")
-            Log.e("AmplifyException## ","AmplifyException  -  ${e.localizedMessage}")
+//            Log.e("AmplifyException## ","AmplifyException  -  ${e.message}")
+//            Log.e("AmplifyException## ","AmplifyException  -  ${e.recoverySuggestion}")
+//            Log.e("AmplifyException## ","AmplifyException  -  ${e.localizedMessage}")
             callback.invoke("Error Initializing Face Scanner")
         }
     }
@@ -41,14 +41,14 @@ object FaceScannerData {
                         region = "us-east-1",
                         disableStartView = true,
                         onComplete = {
-                                     Log.e("FaceLivenessDetector", "onComplete")
+//                                     Log.e("FaceLivenessDetector", "onComplete")
                             bindView.removeView(this as ComposeView)
 //                            bindView.removeView(this.rootView)
                             bindView.removeViewInLayout(this.rootView)
                             callback.invoke("success")
                         },
                         onError = { error ->
-                            Log.e("FaceLivenessDetector", "onError")
+//                            Log.e("FaceLivenessDetector", "onError")
                             callback.invoke("Error during Face Liveness flow")
                         }
                     )

@@ -4,9 +4,10 @@ Steps of Using IPass SDK
 To explain how a user can use the IPass SDK framework in steps, you can outline the process as follows:
 
 -> Integrate of SDK into App
-In this step User Will add the IPass SDK inside the project's write:
+In this step User Will add the IPass SDK inside the app's gradle file:
 
-    implementation 'com.github.mobileexpert1:IPassPlusSDK_Android:2.0.23'
+    implementation("com.github.yazanalqasem:iPass2.0NativeAndroidSDK:2.10")
+    implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.1")
 
 Add:-
 
@@ -19,7 +20,9 @@ Add these lines in your settings.gradle file
         repositories {
             google()
             mavenCentral()
-            jcenter()
+            maven {
+                url = uri("https://jitpack.io")
+            }
             maven {
                 url =uri("https://maven.regulaforensics.com/RegulaDocumentReader/Beta")
             }
@@ -134,7 +137,9 @@ To reduce the APK size, follow these steps:
 
         5. Now add the below mentioned line in the dynamic module's (iPassSdk) build gradle file and sync project.
 
-           implementation("com.github.mobileexpert1:iPassPlusCore:1.0.0")
+           implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.1")
+
+            Note : Remove this line from app's build gradle file
 
         6. Add these lines in your activity
 
@@ -148,7 +153,7 @@ To reduce the APK size, follow these steps:
 
            splitInstallManager?.startInstall(request)
             ?.addOnSuccessListener {
-           // Packages Installed
+           // Packages Installed (Initialise Database Here)
            }
            ?.addOnFailureListener {
            // Packages Installation failed!
