@@ -100,7 +100,7 @@ project.afterEvaluate {
                 from(components["release"])
                 groupId = "com.sdk.ipassplussdk"
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "2.10"
+                version = "2.11"
             }
         }
     }
