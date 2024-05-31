@@ -57,11 +57,14 @@ android {
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation(files("libs/api-7.2.9754/api-7.2.9754.aar"))
+//    implementation(files("libs/api-7.2.9754/api-7.2.9754.aar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation("com.regula.documentreader:api:7.2.9754+@aar") {
+        this.isTransitive = true
+    }
 
     // FaceLivenessDetector dependency
     implementation ("com.amplifyframework.ui:liveness:1.2.1")
@@ -96,7 +99,7 @@ project.afterEvaluate {
                 from(components["release"])
                 groupId = "com.sdk.ipassplussdk"
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "2.3"
+                version = "2.4"
             }
         }
     }

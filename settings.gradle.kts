@@ -14,6 +14,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter()
+        maven {
+            url =uri("https://maven.regulaforensics.com/RegulaDocumentReader/Beta")
+        }
 
     }
 }
