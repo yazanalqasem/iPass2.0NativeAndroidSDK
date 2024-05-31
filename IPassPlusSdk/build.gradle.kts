@@ -55,20 +55,12 @@ android {
 }
 
 dependencies {
-//    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.0.5")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(files("libs/api-7.2.9754/api-7.2.9754.aar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-//    implementation("com.google.android.play:feature-delivery-ktx:2.1.0")
-
-    implementation("com.regula.documentreader:api:7.2.9754+@aar") {
-        this.isTransitive = true
-    }
-//    implementation("com.regula.documentreader.core:fullauthrfid:7.2.10816@aar")
-//    implementation(files("libs/api-6.9.1398"))
 
 
     // FaceLivenessDetector dependency
@@ -104,7 +96,7 @@ project.afterEvaluate {
                 from(components["release"])
                 groupId = "com.sdk.ipassplussdk"
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "2.2"
+                version = "2.3"
             }
         }
     }

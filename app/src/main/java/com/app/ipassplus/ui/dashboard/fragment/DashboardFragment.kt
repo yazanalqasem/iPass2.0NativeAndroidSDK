@@ -15,7 +15,6 @@ import com.app.ipassplus.R
 import com.app.ipassplus.ui.dashboard.model.ScenariosItemModel
 import com.app.ipassplus.databinding.FragmentDashboardBinding
 import com.sdk.ipassplussdk.apis.ResultListener
-import com.sdk.ipassplussdk.core.configProperties
 import com.sdk.ipassplussdk.core.iPassSDKManger
 import com.sdk.ipassplussdk.model.response.transaction_details.TransactionDetailResponse
 
@@ -49,7 +48,6 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        configProperties.needHologramDetection(false)
         val scenarioList = arrayListOf(
             ScenariosItemModel(R.drawable.full2,"Full Processing",getString(R.string.processing_scenario_for_obtaining_all_document_data),true),
             ScenariosItemModel(R.drawable.bankkk, "Bank Card",getString(R.string.procesing_scenario_for_obtaning_bank_card_data),false),
