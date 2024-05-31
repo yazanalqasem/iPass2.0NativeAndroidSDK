@@ -62,7 +62,7 @@ object InitializeDatabase {
                     .initializeReader(context, DocReaderConfig(license)) {
                             success, error_initializeReader ->
 
-                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
+//                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
 
                         if (success) {
                             onInitComplete(completion)
@@ -78,20 +78,20 @@ object InitializeDatabase {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onInitComplete(completion: InitializeDatabaseCompletion) {
 
-        DocumentReader.Instance().processParams().debugSaveLogs = false
-        DocumentReader.Instance().processParams().debugSaveCroppedImages = false
-        DocumentReader.Instance().processParams().debugSaveImages = false
+//        DocumentReader.Instance().processParams().debugSaveLogs = false
+//        DocumentReader.Instance().processParams().debugSaveCroppedImages = false
+//        DocumentReader.Instance().processParams().debugSaveImages = false
 
-        val path = DocumentReader.Instance().processParams().sessionLogFolder
+//        val path = DocumentReader.Instance().processParams().sessionLogFolder
 //        Log.d("SdkLicense" , "Path: $path")
 
 
-        DocumentReader.Instance().setLocalizationCallback { stringId ->
-            if(stringId == "strLookingDocument")
-            // return@setLocalizationCallback SettingsActivity.customString
-                return@setLocalizationCallback ""
-            return@setLocalizationCallback null
-        }
+//        DocumentReader.Instance().setLocalizationCallback { stringId ->
+//            if(stringId == "strLookingDocument")
+//            // return@setLocalizationCallback SettingsActivity.customString
+//                return@setLocalizationCallback ""
+//            return@setLocalizationCallback null
+//        }
         completion.onCompleted(true,"Success")
 
 //        FaceScannerData.configureFaceScanner(context, callback)
