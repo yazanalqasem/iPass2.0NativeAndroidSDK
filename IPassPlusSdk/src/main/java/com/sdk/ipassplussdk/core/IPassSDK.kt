@@ -82,8 +82,8 @@ object iPassSDKManger {
         email: String?,
         userToken: String?,
         appToken: String?,
-        socialMediaEmail: String?,
-        phoneNumber: String?,
+        socialMediaEmail: String = "",
+        phoneNumber: String = "",
         flowId: String?,
         bindingView: ViewGroup?,
         callback: (status: Boolean, message: String) -> Unit
@@ -104,16 +104,16 @@ object iPassSDKManger {
             callback.invoke(false, "App Token is required")
             return
         }
-        if (socialMediaEmail.isNullOrEmpty()) {
+        if (flowId.isNullOrEmpty()) {
+            callback.invoke(false, "Flow ID is required")
+            return
+        }
+        if ((flowId == "10031") && socialMediaEmail.isNullOrEmpty()) {
             callback.invoke(false, "Social Media Email is required")
             return
         }
-        if (phoneNumber.isNullOrEmpty()) {
+        if ((flowId == "10031") && phoneNumber.isNullOrEmpty()) {
             callback.invoke(false, "Phone Number is required")
-            return
-        }
-        if (flowId.isNullOrEmpty()) {
-            callback.invoke(false, "Flow ID is required")
             return
         }
         if (bindingView == null) {
@@ -122,7 +122,7 @@ object iPassSDKManger {
         }
 
 
-
+        ProgressManager.showProgress(context)
         Consumption.checkAccess(context, appToken, object : ResultListener<CustomerAccessResponse> {
             override fun onSuccess(response: CustomerAccessResponse?) {
                 if (response?.message.equals("sucess")) {
@@ -157,7 +157,7 @@ object iPassSDKManger {
         DocumentReaderData.showScanner(context) {
                 status, message ->
             if (status) {
-                ProgressManager.showProgress(context)
+
                 this.rawResult = message
 
                 if (flowId.equals("10015")) {

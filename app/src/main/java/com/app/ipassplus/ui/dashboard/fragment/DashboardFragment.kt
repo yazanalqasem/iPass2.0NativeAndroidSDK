@@ -23,12 +23,12 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
     private val binding by lazy { FragmentDashboardBinding.inflate(layoutInflater) }
     private lateinit var adapter: ScenariosListAdapter
   //  private val email = "ipassmobsdk@yopmail.com"
-    private val email = "ipassmoband@yopmail.com"
+    private val email = "ipassandhar@yopmail.com"
     private val password = "Admin@123#"
   //  private val token = "eyJhbGciOiJIUzI1NiJ9.aXBhc3Ntb2JzZGtAeW9wbWFpbC5jb21pcGFzcyBpcGFzcyAgIDcxNWFkYTI4LWFmODEtNGM5MC1iY2IyLTJmZjc1Mjg1YzhkYg.OfsTPtj41geOVQ9riQdTpCVEgWqfoqfpva93xez2xJk"
-    private val apptoken = "eyJhbGciOiJIUzI1NiJ9.aXBhc3Ntb2JhbmRAeW9wbWFpbC5jb21tb2JpbGUgdGVhbSAgIGJiNDY0MGNhLTUwNDQtNGRlMy05MjVlLWI4YmU0NzFiZTZkNA.qG6NtAPJWFgyS30lqHe4LZSu0X-97XnWlvZqQ22HoeM"
+    private val apptoken = "eyJhbGciOiJIUzI1NiJ9.aXBhc3NhbmRoYXJAeW9wbWFpbC5jb21tb2JpbGUgdGVhbSAgIDFhYzlkYzYyLWFjZmUtNDEwOC04Y2Q2LTExY2I0OTA5NDFmMw.jTDHn4B6yOaPGpK0y2G2vvSxTcybaV7icfGkGltIelo"
     val phoneNumber = "7894563210"
-    val flowId = "10015"
+    val flowId = "10011"
     val socialMediaEmail = "ipassmobisdk@yopmail.com"
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -68,7 +68,10 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onScenarioPickClick(position: Int, model: ScenariosItemModel) {
-        iPassSDKManger.startScanningProcess(requireContext(),email, MainActivity.userToken, apptoken, socialMediaEmail , phoneNumber, flowId ,binding.root as ViewGroup) {
+        iPassSDKManger.startScanningProcess(
+            context = requireContext(),
+            email = email, userToken = MainActivity.userToken,
+            appToken = apptoken,socialMediaEmail = socialMediaEmail, phoneNumber = phoneNumber, flowId =  flowId , bindingView = binding.root as ViewGroup) {
             status, message ->
             if (status) {
                 Log.e("startScanningProcess", message)
