@@ -33,18 +33,18 @@ android {
     }
     compileOptions {
 //        isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
     packagingOptions {
         jniLibs {
@@ -100,7 +100,7 @@ project.afterEvaluate {
                 from(components["release"])
                 groupId = "com.sdk.ipassplussdk"
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "2.12"
+                version = "1.8.1"
             }
         }
     }
