@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/yazanalqasem/iPass2.0NativeiOS/blob/liveness_update/git_im.png" />
+  <img src="https://github.com/yazanalqasem/iPass2.0NativeAndroidSDK/blob/main/IPassPlusSdk/src/main/res/drawable/ipass_logo.png" />
 </p>
 
 
@@ -42,7 +42,9 @@ launderers have no place. To avoid fraud and financial
 crime, internet firms must know and trust that their
 clients are who they say they are – and that they will
 remain trustworthy.
-
+<p align="center">
+  <img src="https://github.com/yazanalqasem/iPass2.0NativeAndroidSDK/blob/main/IPassPlusSdk/src/main/res/drawable/overview.png" />
+</p>
 ---
 
 ## Steps of using iPASS Android Package
