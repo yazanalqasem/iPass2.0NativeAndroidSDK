@@ -1,4 +1,6 @@
-![Logo](https://github.com/yazanalqasem/iPass2.0NativeiOS/blob/liveness_update/git_im.png)
+<p align="center">
+  <img src="https://github.com/yazanalqasem/iPass2.0NativeiOS/blob/liveness_update/git_im.png" />
+</p>
 
 
 
