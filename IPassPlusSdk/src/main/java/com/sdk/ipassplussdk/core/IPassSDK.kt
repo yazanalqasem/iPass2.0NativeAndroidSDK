@@ -21,10 +21,7 @@ import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.utils.Scenarios
 import com.sdk.ipassplussdk.views.ProgressManager
-import java.net.InetAddress
-import java.net.NetworkInterface
-import java.util.Collections
-import java.util.Locale
+import java.net.URL
 import java.util.UUID
 
 
@@ -159,25 +156,36 @@ object iPassSDKManger {
             if (status) {
 
                 this.rawResult = message
+                getIPAddress(
+                    context,
+                    appToken,
+                    email,
+                    socialMediaEmail,
+                    phoneNumber,
+                    flowId,
+                    userToken,
+                    bindingView,
+                    callback
+                )
 
-                if (flowId.equals("10015")) {
-                    uploadData(
-                        context,
-                        appToken,
-                        email,
-                        socialMediaEmail,
-                        phoneNumber,
-                        getIPAddress(false),
-                        flowId,
-                        "androidSdk",
-                        "0",
-                        callback
-                    )
-                } else {
-                    faceSessionCreateRequest(context, email, userToken, appToken,socialMediaEmail,phoneNumber,
-                        getIPAddress(false),
-                        flowId,"androidSdk", bindingView, callback)
-                }
+//                if (flowId.equals("10015")) {
+//                    uploadData(
+//                        context,
+//                        appToken,
+//                        email,
+//                        socialMediaEmail,
+//                        phoneNumber,
+//                        getIPAddress(true),
+//                        flowId,
+//                        "Android v2.12",
+//                        "0",
+//                        callback
+//                    )
+//                } else {
+//                    faceSessionCreateRequest(context, email, userToken, appToken,socialMediaEmail,phoneNumber,
+//                        getIPAddress(true),
+//                        flowId,"Android v2.12", bindingView, callback)
+//                }
             } else {
                 ProgressManager.dismissProgress()
                 callback.invoke(false, message)
@@ -367,38 +375,100 @@ object iPassSDKManger {
      * @param useIPv4   true=return ipv4, false=return ipv6
      * @return  address or empty string
      */
-    fun getIPAddress(useIPv4: Boolean): String {
-        try {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getIPAddress(
+        context: Context,
+        appToken: String,
+        email: String,
+        socialMediaEmail: String,
+        phoneNumber: String,
+        flowId: String,
+        userToken: String,
+        bindingView: ViewGroup,
+        callback: (status: Boolean, message: String) -> Unit
+    ): String {
+        var ip: String? = null
+        val thread = Thread {
+            try {
+                val url = URL("https://api.ipify.org")
+                val connection = url.openConnection()
+                connection.setRequestProperty(
+                    "User-Agent",
+                    "Mozilla/5.0"
+                ) // Set a User-Agent to avoid HTTP 403 Forbidden error
+                val inputStream = connection.getInputStream()
+                val s = java.util.Scanner(inputStream, "UTF-8").useDelimiter("\\A")
+                ip = s.next()
+
+//                if (flowId.equals("10015")) {
+//                    uploadData(
+//                        context,
+//                        appToken,
+//                        email,
+//                        socialMediaEmail,
+//                        phoneNumber,
+//                        "",
+//                        flowId,
+//                        "Android v2.12",
+//                        "0",
+//                        callback
+//                    )
+//                }
+
+
+                if (flowId.equals("10015")) {
+//                    Log.e("IPPPPP", ip.toString())
+                    uploadData(
+                        context,
+                        appToken,
+                        email,
+                        socialMediaEmail,
+                        phoneNumber,
+                        ip.toString(),
+                        flowId,
+                        "androidSdk",
+//                        "Android v2.12",
+                        "0",
+                        callback
+                    )
+                } else {
+                    faceSessionCreateRequest(
+                        context, email, userToken, appToken, socialMediaEmail, phoneNumber,
+                        ip.toString(),
+                        flowId, "androidSdk", bindingView, callback
+//                        flowId, "Android v2.12", bindingView, callback
+                    )
+                }
+            } catch (e: Exception ) {
+                e.printStackTrace();
+            }
+        }
+
+        thread.start();
+//        Log.e("IPPPPPPPPPPPP", ip.toString())
+return ip.toString()
+/*        try {
+            var sAddr = ""
             val interfaces: List<NetworkInterface> =
                 Collections.list(NetworkInterface.getNetworkInterfaces())
             for (intf in interfaces) {
                 val addrs: List<InetAddress> = Collections.list(intf.inetAddresses)
                 for (addr in addrs) {
                     if (!addr.isLoopbackAddress) {
-                        val sAddr = addr.hostAddress
+                        sAddr = addr.hostAddress
                         //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
                         val isIPv4 = sAddr.indexOf(':') < 0
 
                         if (useIPv4) {
                             if (isIPv4) return sAddr
-                        } else {
-                            if (!isIPv4) {
-                                val delim = sAddr.indexOf('%') // drop ip6 zone suffix
-                                return if (delim < 0) sAddr.uppercase(Locale.getDefault()) else sAddr.substring(
-                                    0,
-                                    delim
-                                ).uppercase(
-                                    Locale.getDefault()
-                                )
-                            }
                         }
                     }
                 }
             }
+            return sAddr
         } catch (ignored: Exception) {
-        } // for now eat exceptions
-
-        return ""
+            return ""
+        } // for now eat exceptions*/
     }
 
 }

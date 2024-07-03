@@ -36,18 +36,18 @@ android {
 
     compileOptions {
         //isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packagingOptions {
         jniLibs {
@@ -58,8 +58,8 @@ android {
 
 dependencies {
 
-//    val kotlin_version= "1.9.22"
-//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    val kotlin_version= "1.9.22"
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
 //    implementation ("com.regula.documentreader.core:fullauthrfid:7.2.10816@aar")
 
     implementation(project(mapOf("path" to ":IPassPlusSdk")))
@@ -87,7 +87,7 @@ dependencies {
 
     implementation ("com.intuit.sdp:sdp-android:1.1.0")
 //    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.tbuonomo:dotsindicator:4.2")
+    implementation("com.tbuonomo:dotsindicator:5.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

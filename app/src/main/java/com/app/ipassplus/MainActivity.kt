@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressDialog: AlertDialog
     private lateinit var splitInstallManager: SplitInstallManager
     private val coreModule = "document_reader_sdk"
-    private val email = "ipassmoband@yopmail.com"
+    private val email = "ipassandhar@yopmail.com"
     private val apptoken = "eyJhbGciOiJIUzI1NiJ9.aXBhc3Ntb2JzZGtAeW9wbWFpbC5jb21pcGFzcyBpcGFzcyAgIDcxNWFkYTI4LWFmODEtNGM5MC1iY2IyLTJmZjc1Mjg1YzhkYg.OfsTPtj41geOVQ9riQdTpCVEgWqfoqfpva93xez2xJk"
     private val password = "Admin@123#"
 
