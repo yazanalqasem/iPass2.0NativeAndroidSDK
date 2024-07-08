@@ -35,9 +35,9 @@ object AuthData {
                             completion.onSuccess(response.body()!!)
                         } else {
                             try {
-                                completion.onError(response.message())
+                                completion.onError(response.errorBody()?.string()!!)
                             }catch (e: Exception){
-
+                                completion.onError("Something went wrong")
                             }
                         }
                     }

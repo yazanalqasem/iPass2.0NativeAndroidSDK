@@ -35,9 +35,9 @@ object Consumption {
                             completion.onSuccess(response.body()!!)
                         } else {
                             try {
-                                completion.onError(response.message())
+                                completion.onError(response.body()?.message!!)
                             }catch (e: Exception){
-
+                                completion.onError("Something went wrong")
                             }
                         }
                     }

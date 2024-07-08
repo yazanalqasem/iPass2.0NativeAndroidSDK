@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.ipassplus.MainActivity
@@ -27,8 +28,9 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
     private val password = "Admin@123#"
   //  private val token = "eyJhbGciOiJIUzI1NiJ9.aXBhc3Ntb2JzZGtAeW9wbWFpbC5jb21pcGFzcyBpcGFzcyAgIDcxNWFkYTI4LWFmODEtNGM5MC1iY2IyLTJmZjc1Mjg1YzhkYg.OfsTPtj41geOVQ9riQdTpCVEgWqfoqfpva93xez2xJk"
     private val apptoken = "eyJhbGciOiJIUzI1NiJ9.aXBhc3NhbmRoYXJAeW9wbWFpbC5jb21tb2JpbGUgdGVhbSAgIDFhYzlkYzYyLWFjZmUtNDEwOC04Y2Q2LTExY2I0OTA5NDFmMw.jTDHn4B6yOaPGpK0y2G2vvSxTcybaV7icfGkGltIelo"
+//    private val apptoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjYzODg4MWYyYzNmMDFmMTg5OTNlMWI4IiwiZW1haWwiOiJtYWJ1c2FuaW1laEBhY2Nlc3MyYXJhYmlhLmNvbSIsImlhdCI6MTcxNTE2MDU1MywiZXhwIjoxNzE1MTYyMzUzfQ.Jyp8s_c3oc2grx2_Xip8yMTIU3_TZCctbEXnsyAMKLw"
     val phoneNumber = "7894563210"
-    val flowId = "10031"
+    val flowId = "10011"
     val socialMediaEmail = "ipassmobisdk@yopmail.com"
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -78,6 +80,7 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
                 getDocData()
             } else {
                 Log.e("startScanningProcess", message)
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -91,6 +94,7 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
                     Log.e("onSuccess", response.data.toString())
                 } else {
                     Log.e("error", response.Apimessage!!)
+                    Toast.makeText(context, response.Apimessage, Toast.LENGTH_SHORT).show()
                 }
             }
 

@@ -33,9 +33,13 @@ object SessionCreateDataNew {
                             completion.onSuccess(response.body()!!)
                         } else {
                             try {
-                                completion.onError(response.message())
+                                if (response.message().isNullOrEmpty()) {
+                                    completion.onError(response.body()?.error?.user?.title!!)
+                                } else {
+                                    completion.onError(response.message())
+                                }
                             }catch (e: Exception){
-                                completion.onError("")
+                                completion.onError("Something went Wrong")
                             }
                         }
                     }

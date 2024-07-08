@@ -5,6 +5,7 @@ import android.os.Build
 import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.sdk.ipassplussdk.apis.ResultListener
 import com.sdk.ipassplussdk.model.request.authentication.AuthenticationRequest
@@ -21,6 +22,7 @@ import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.utils.Scenarios
 import com.sdk.ipassplussdk.views.ProgressManager
+import org.json.JSONObject
 import java.net.URL
 import java.util.UUID
 
@@ -264,6 +266,7 @@ object iPassSDKManger {
         callback: (Boolean, String) -> Unit
     ) {
         ProgressManager.dismissProgress()
+        Log.e("@@@@@", sessionId)
         initFaceDetector(context, sessionId, bindingView) {
             if (it.equals("success")) {
                     ProgressManager.showProgress(context)
@@ -317,6 +320,11 @@ object iPassSDKManger {
             }
             override fun onError(exception: String) {
                 ProgressManager.dismissProgress()
+                Log.e("@@@message", exception)
+//                val obj = JSONObject(exception)
+////
+//                val value = obj.getString("message")
+//                Log.e("@@@message", value)
                 callback.invoke(false, exception)
             }
         })
@@ -400,21 +408,6 @@ object iPassSDKManger {
                 val s = java.util.Scanner(inputStream, "UTF-8").useDelimiter("\\A")
                 ip = s.next()
 
-//                if (flowId.equals("10015")) {
-//                    uploadData(
-//                        context,
-//                        appToken,
-//                        email,
-//                        socialMediaEmail,
-//                        phoneNumber,
-//                        "",
-//                        flowId,
-//                        "Android v2.12",
-//                        "0",
-//                        callback
-//                    )
-//                }
-
 
                 if (flowId.equals("10015")) {
 //                    Log.e("IPPPPP", ip.toString())
@@ -441,34 +434,13 @@ object iPassSDKManger {
                 }
             } catch (e: Exception ) {
                 e.printStackTrace();
+                callback.invoke(false, e.message.toString())
             }
         }
 
         thread.start();
 //        Log.e("IPPPPPPPPPPPP", ip.toString())
-return ip.toString()
-/*        try {
-            var sAddr = ""
-            val interfaces: List<NetworkInterface> =
-                Collections.list(NetworkInterface.getNetworkInterfaces())
-            for (intf in interfaces) {
-                val addrs: List<InetAddress> = Collections.list(intf.inetAddresses)
-                for (addr in addrs) {
-                    if (!addr.isLoopbackAddress) {
-                        sAddr = addr.hostAddress
-                        //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
-                        val isIPv4 = sAddr.indexOf(':') < 0
-
-                        if (useIPv4) {
-                            if (isIPv4) return sAddr
-                        }
-                    }
-                }
-            }
-            return sAddr
-        } catch (ignored: Exception) {
-            return ""
-        } // for now eat exceptions*/
+        return ip.toString()
     }
 
 }
