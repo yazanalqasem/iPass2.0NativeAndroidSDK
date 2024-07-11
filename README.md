@@ -6,10 +6,10 @@
 
 [![License](https://img.shields.io/badge/License-Commercial-blue.svg)](LICENSE)
 [![iPass](https://img.shields.io/badge/iPass-lightgreen)](https://ipass-mena.com)
-![API Doc](https://img.shields.io/badge/API%20doc-v2.12-green)
+![API Doc](https://img.shields.io/badge/API%20doc-v2.13-green)
 ![Swift](https://img.shields.io/badge/Kotlin-1.9-red.svg)
 ![platform](https://img.shields.io/badge/Platforms-Android-orange)
-![pod](https://img.shields.io/badge/sdk-v2.12-yellow)
+![pod](https://img.shields.io/badge/sdk-v2.13-yellow)
 
 # Table of Contents
 - [Overview](#overview)
@@ -57,7 +57,7 @@ To explain how a user can use the iPASS Package in steps, you can outline the pr
 
 In this step User Will add the IPass SDK inside the app's gradle file:
 ```kotlin
-    implementation("com.github.yazanalqasem:iPass2.0NativeAndroidSDK:2.12")
+    implementation("com.github.yazanalqasem:iPass2.0NativeAndroidSDK:2.13")
     implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.1")
 ```
 

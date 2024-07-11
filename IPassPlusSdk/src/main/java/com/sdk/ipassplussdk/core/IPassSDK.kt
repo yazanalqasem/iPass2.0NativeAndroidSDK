@@ -334,7 +334,12 @@ object iPassSDKManger {
 
     //    returns a list of available Processing Scenarios
     fun getScenariosList() {
-        val list = arrayListOf(Scenarios.SCENARIO_FULL_PROCESS)
+        val list = arrayListOf(
+            "10031",
+            "10032",
+            "10011",
+            "10015",
+            )
     }
 
 
@@ -419,8 +424,8 @@ object iPassSDKManger {
                         phoneNumber,
                         ip.toString(),
                         flowId,
-                        "androidSdk",
-//                        "Android v2.12",
+//                        "androidSdk",
+                        "Android v2.13",
                         "0",
                         callback
                     )
@@ -428,8 +433,8 @@ object iPassSDKManger {
                     faceSessionCreateRequest(
                         context, email, userToken, appToken, socialMediaEmail, phoneNumber,
                         ip.toString(),
-                        flowId, "androidSdk", bindingView, callback
-//                        flowId, "Android v2.12", bindingView, callback
+//                        flowId, "androidSdk", bindingView, callback
+                        flowId, "Android v2.13", bindingView, callback
                     )
                 }
             } catch (e: Exception ) {
