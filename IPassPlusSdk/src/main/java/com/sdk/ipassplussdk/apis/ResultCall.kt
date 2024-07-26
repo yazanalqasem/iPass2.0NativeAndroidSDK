@@ -1,5 +1,6 @@
 package com.sdk.ipassplussdk.apis
 
+import com.sdk.ipassplussdk.R
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
@@ -27,11 +28,14 @@ class ResultCall<T : Any>(val delegate: Call<T>) : Call<Result<T>> {
                     }
                 }
                 override fun onFailure(call: Call<T>, t: Throwable) {
-                    val errorMessage = when (t) {
-                        is IOException -> "No internet connection"
-                        is HttpException -> "Something went wrong!"
-                        else -> t.localizedMessage
-                    }
+//                    val errorMessage = when (t) {
+//                        is IOException -> context.getString(R.string.no_internet_connection)
+//                        is HttpException -> "Something went wrong!"
+//                        else -> t.localizedMessage
+//                    }
+                    val errorMessage = if (t.localizedMessage.isNullOrEmpty()) {
+                        "Something went wrong"
+                    } else t.localizedMessage
                     callback.onResponse(this@ResultCall, Response.success(Result.failure(RuntimeException(errorMessage, t))))
                 }
             }

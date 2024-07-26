@@ -2,6 +2,7 @@ package com.sdk.ipassplussdk.core
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.apis.ApiClient
 import com.sdk.ipassplussdk.apis.ApiInterface
 import com.sdk.ipassplussdk.apis.ResultListener
@@ -39,7 +40,7 @@ object SessionCreateDataNew {
                                     completion.onError(response.message())
                                 }
                             }catch (e: Exception){
-                                completion.onError("Something went Wrong")
+                                completion.onError(context.getString(R.string.something_went_wrong))
                             }
                         }
                     }
@@ -49,7 +50,7 @@ object SessionCreateDataNew {
                     }
                 })
         } else {
-            completion.onError(Constants.NO_INTERNET_TEXT)
+            completion.onError(context.getString(R.string.internet_connection_not_found))
         }
 
     }

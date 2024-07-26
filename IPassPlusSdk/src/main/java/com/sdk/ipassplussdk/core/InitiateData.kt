@@ -5,6 +5,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.apis.ApiClient
 import com.sdk.ipassplussdk.apis.ApiInterface
 import com.sdk.ipassplussdk.apis.ResultListener
@@ -36,34 +37,22 @@ object InitiateData {
                         call: Call<UploadDataResponse>,
                         response: Response<UploadDataResponse>
                     ) {
-                        println("Response ==> $response")
-//                        println("Response ${response.errorBody()?.toString()}")
                         if (response.isSuccessful) {
-//                            val rsp = Gson().fromJson(response.body().toString(), UploadDataResponse::class.java)
                             completion.onSuccess(response.body())
-//                            response.errorBody()?.string()
                         } else {
                             try {
-                                if (response.message().isNullOrEmpty()) {
-//                                    Log.e("@@@@@@@T",response.errorBody()?.string()!!)
-//                                    Log.e("@@@@@@@T",response.message().toString())
-
-//                                    val c = response.errorBody()?.string().toString()
-//                                    val obj = JSONObject(c)
-//
-//                                    if (obj.has("message")) {
-//                                        Log.e("@@@message", obj.getString("message"))
+//                                if (response.body() != null && !response.body()?.message.equals("")) {
+//                                    completion.onError(response.body()?.message.toString())
+//                                } else if (response.message().isNullOrEmpty()) {
                                         val errBody = Gson().fromJson(response.errorBody()?.string(), ErrorBodyResponse::class.java)
                                         completion.onError(errBody?.message!!)
-//                                    } else {
-//                                        completion.onError("Data processing error!")
-//                                    }
-                                } else {
-                                    completion.onError(response.message())
-                                }
+//                                }
+//                            else {
+//                                    completion.onError(response.message())
+//                                }
                             }catch (e:Exception){
                                 e.printStackTrace()
-                                completion.onError("Data processing error!")
+                                completion.onError(context.getString(R.string.data_processing_error))
                             }
                         }
                     }
@@ -73,7 +62,7 @@ object InitiateData {
                     }
                 })
         } else {
-            completion.onError(Constants.NO_INTERNET_TEXT)
+            completion.onError(context.getString(R.string.internet_connection_not_found))
         }
 
     }

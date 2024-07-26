@@ -1,12 +1,13 @@
 package com.sdk.ipassplussdk.core
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Build
 import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import com.google.gson.Gson
 import com.google.gson.JsonParser
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.apis.ResultListener
 import com.sdk.ipassplussdk.model.request.authentication.AuthenticationRequest
 import com.sdk.ipassplussdk.model.request.create_aws_session.SessionCreateRequestNew
@@ -18,12 +19,10 @@ import com.sdk.ipassplussdk.model.response.initiate_data.UploadDataResponse
 import com.sdk.ipassplussdk.model.response.transaction_details.TransactionDetailResponse
 import com.sdk.ipassplussdk.ui.DocumentReaderData
 import com.sdk.ipassplussdk.ui.FaceScannerData.initFaceDetector
-import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
-import com.sdk.ipassplussdk.utils.Scenarios
 import com.sdk.ipassplussdk.views.ProgressManager
-import org.json.JSONObject
 import java.net.URL
+import java.util.Locale
 import java.util.UUID
 
 
@@ -42,17 +41,17 @@ object iPassSDKManger {
         completion: ResultListener<AuthenticationResponse>) {
 
         if (!InternetConnectionService.networkAvailable(context)) {
-            completion.onError(Constants.NO_INTERNET_TEXT)
+            completion.onError(context.getString(R.string.internet_connection_not_found))
             return
         }
 
         if (email.isNullOrEmpty()) {
-            completion.onError("Email is required")
+            completion.onError(context.getString(R.string.email_is_required))
             return
         }
 
         if (password.isNullOrEmpty()) {
-            completion.onError("Password is required")
+            completion.onError(context.getString(R.string.password_is_required))
             return
         }
 
@@ -72,8 +71,6 @@ object iPassSDKManger {
         })
     }
 
-
-
     //    Show scanner for document verification
     @RequiresApi(Build.VERSION_CODES.O)
     fun startScanningProcess(
@@ -88,44 +85,53 @@ object iPassSDKManger {
         callback: (status: Boolean, message: String) -> Unit
     ) {
         if (!InternetConnectionService.networkAvailable(context)) {
-            callback.invoke(false, Constants.NO_INTERNET_TEXT)
+            callback.invoke(false, context.getString(R.string.internet_connection_not_found))
             return
         }
         if (email.isNullOrEmpty()) {
-            callback.invoke(false, "Email is required")
+            callback.invoke(false, context.getString(R.string.email_is_required))
             return
         }
         if (userToken.isNullOrEmpty()) {
-            callback.invoke(false, "User Token is required")
+            callback.invoke(false, context.getString(R.string.user_token_is_required))
             return
         }
         if (appToken.isNullOrEmpty()) {
-            callback.invoke(false, "App Token is required")
+            callback.invoke(false, context.getString(R.string.app_token_is_required))
             return
         }
         if (flowId.isNullOrEmpty()) {
-            callback.invoke(false, "Flow ID is required")
+            callback.invoke(false, context.getString(R.string.flow_id_is_required))
             return
         }
         if ((flowId == "10031") && socialMediaEmail.isNullOrEmpty()) {
-            callback.invoke(false, "Social Media Email is required")
+            callback.invoke(false, context.getString(R.string.social_media_email_is_required))
             return
         }
         if ((flowId == "10031") && phoneNumber.isNullOrEmpty()) {
-            callback.invoke(false, "Phone Number is required")
+            callback.invoke(false, context.getString(R.string.phone_number_is_required))
             return
         }
         if (bindingView == null) {
-            callback.invoke(false, "binding view group is null")
+            callback.invoke(false, context.getString(R.string.binding_viewgroup_is_null))
             return
+        }
+
+        val currentLang = Locale.getDefault().language
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Locale.getDefault().language
+        }
+        else{
+            Locale.getDefault().language
         }
 
 
         ProgressManager.showProgress(context)
-        Consumption.checkAccess(context, appToken, object : ResultListener<CustomerAccessResponse> {
+        Consumption.checkAccess(context, appToken, language = currentLang, object : ResultListener<CustomerAccessResponse> {
             override fun onSuccess(response: CustomerAccessResponse?) {
                 if (response?.message.equals("sucess")) {
-                    showDocScanner(context, appToken, userToken, email, socialMediaEmail, phoneNumber, flowId, bindingView, callback)
+                        showDocScanner(context, appToken, userToken, email, socialMediaEmail, phoneNumber, flowId,  bindingView, callback)
+
                 } else {
                     ProgressManager.dismissProgress()
                     callback.invoke(false, response?.message!!)
@@ -266,9 +272,9 @@ object iPassSDKManger {
         callback: (Boolean, String) -> Unit
     ) {
         ProgressManager.dismissProgress()
-        Log.e("@@@@@", sessionId)
+//        Log.e("@@@@@", sessionId)
         initFaceDetector(context, sessionId, bindingView) {
-            if (it.equals("success")) {
+//            if (it.equals("success")) {
                     ProgressManager.showProgress(context)
                     uploadData(
                         context,
@@ -282,11 +288,22 @@ object iPassSDKManger {
                         sessionId,
                         callback
                     )
-                } else {
-                ProgressManager.dismissProgress()
-                callback.invoke(false, it)
-            }}
+//                } else {
+//                ProgressManager.dismissProgress()
+//                callback.invoke(false, it)
+//            }
     }
+    }
+
+//    fun getDeviceLanguage(): String {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            // For Android N  above
+//            Locale.getDefault().language
+//        } else {
+//            // For older versions of Android
+//            Locale.getDefault().language
+//        }
+//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadData(
@@ -301,6 +318,18 @@ object iPassSDKManger {
         sessionId: String,
         callback: (Boolean, String) -> Unit
     ) {
+        //  val defaultLocale = Resources.getSystem().getConfiguration().locale;
+      //       Log.d("locale","$defaultLocale")
+
+        val getDeviceLanguage = Locale.getDefault().language
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Locale.getDefault().language
+        }
+        else{
+            Locale.getDefault().language
+        }
+      //    Log.d("locale","$currentLang")
+
         val uploaddataRequest = UploadDataRequest()
         uploaddataRequest.email = userEmail
         uploaddataRequest.randomid = sid
@@ -309,6 +338,7 @@ object iPassSDKManger {
         uploaddataRequest.ipadd= ipadd
         uploaddataRequest.workflow= flowId
         uploaddataRequest.source= source
+        uploaddataRequest.language= getDeviceLanguage
         uploaddataRequest.sessionId = sessionId
         val rawData = JsonParser().parse(rawResult).asJsonObject
         uploaddataRequest.idvData = rawData
@@ -320,9 +350,9 @@ object iPassSDKManger {
             }
             override fun onError(exception: String) {
                 ProgressManager.dismissProgress()
-                Log.e("@@@message", exception)
+//                Log.e("@@@message", exception)
 //                val obj = JSONObject(exception)
-////
+//
 //                val value = obj.getString("message")
 //                Log.e("@@@message", value)
                 callback.invoke(false, exception)
@@ -349,11 +379,11 @@ object iPassSDKManger {
         appToken: String,
         completion: ResultListener<TransactionDetailResponse>) {
         if (!InternetConnectionService.networkAvailable(context)) {
-            completion.onError(Constants.NO_INTERNET_TEXT)
+            completion.onError(context.getString(R.string.internet_connection_not_found))
             return
         }
         if (appToken.isNullOrEmpty()) {
-            completion.onError("App Token is required")
+            completion.onError(context.getString(R.string.app_token_is_required))
             return
         }
 
@@ -377,7 +407,7 @@ object iPassSDKManger {
         // Generate a random UUID
         val myUuid = UUID.randomUUID()
         val myUuidAsString = myUuid.toString()
-        Log.e("Sid", myUuidAsString)
+//        Log.e("Sid", myUuidAsString)
 
         return myUuidAsString
     }

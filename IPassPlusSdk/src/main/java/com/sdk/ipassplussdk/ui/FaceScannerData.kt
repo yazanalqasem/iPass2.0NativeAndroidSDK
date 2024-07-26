@@ -1,9 +1,11 @@
 package com.sdk.ipassplussdk.ui
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.MaterialTheme
@@ -41,20 +43,25 @@ object FaceScannerData {
                         region = "us-east-1",
                         disableStartView = true,
                         onComplete = {
-//                                     Log.e("FaceLivenessDetector", "onComplete")
+                            (context as Activity).getWindow()
+                                .clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             bindView.removeView(this as ComposeView)
-//                            bindView.removeView(this.rootView)
                             bindView.removeViewInLayout(this.rootView)
                             callback.invoke("success")
                         },
                         onError = { error ->
-//                            Log.e("FaceLivenessDetector", "onError")
+                            (context as Activity).getWindow()
+                                .clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             callback.invoke("Error during Face Liveness flow")
                         }
                     )
                 }
             }
         }
+        (context as Activity).getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        );
 
         bindView.addView(composeView) // Add ComposeView to parentViewGroup
     }

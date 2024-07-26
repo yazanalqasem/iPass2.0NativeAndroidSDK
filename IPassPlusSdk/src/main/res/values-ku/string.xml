@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="internet_connection_not_found">هەڵەیەک ڕوویدا لەگەڵ بەرزەخ</string>
+    <string name="database_initialized_successfully">داتابەیس سەرکەوتوانە دامەزرابوو</string>
+    <string name="facescannernotconfigured">ماسحەوەی ڕوو تێبینی نیە</string>
+    <string name="scanning_cancelled">سکانی بەتاڵ کرا</string>
+    <string name="something_went_wrong_with_nfc">هەڵەیەک ڕوویدا لەگەڵ NFC</string>
+    <string name="something_went_wrong">شتێک هەڵە بوو</string>
+    <string name="email_is_required">ئیمەیڵ پێویستە</string>
+    <string name="password_is_required">تێپەڕەوشە پێویستە</string>
+    <string name="user_token_is_required">توکن بەکارهێنەر پێویستە</string>
+    <string name="app_token_is_required">توکن ئاپ پێویستە</string>
+    <string name="flow_id_is_required"> Flow ID پێویستە</string>
+    <string name="social_media_email_is_required">ئیمەیڵی کۆمەڵایەتی پێویستە</string>
+    <string name="phone_number_is_required">ژمارەی تەلەفۆن پێویستە</string>
+    <string name="binding_viewgroup_is_null"> Binding Viewgroup هیچە</string>
+    <string name="data_processing_error">هەڵە لە پڕۆسەکردنی زانیاری</string>
+
+    <string name="amplify_ui_liveness_get_ready_center_face_label">Rûyê xwe navber bike</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_title">Hişyardariya Hestiyariya Roniyê</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_description">Ev test di rengên cuda de dikeve. Agahdar be ger hestiyarîya ronan hebe.</string>
+    <string name="amplify_ui_liveness_get_ready_a11y_photosensitivity_icon_content_description">Agahîyên hestiyariya roniyê</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_title">Hişyardariya Hestiyariya Roniyê</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_description">Hin kesan dikarin dema ku ronahiyên rengîn dibîn, vegerên epilepsî hebin. Hişyar be ger te an endamên malbata te nexweşiya epilepsî heye.</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_dismiss">Fahm kir</string>
+    <string name="amplify_ui_liveness_get_ready_begin_check">Pêşnaxa Vîdyoyê Dest Pê Bike</string>
+    <string name="amplify_ui_liveness_challenge_recording_indicator_label">REC</string>
+    <string name="amplify_ui_liveness_challenge_instruction_hold_face_during_freshness">Bixteyn</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_further">Pêşve bike</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_closer">Nêzîk bike</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face">Rûyê li ber kamerayê vegerînin</string>
+    <string name="amplify_ui_liveness_challenge_instruction_multiple_faces_detected">Tenê yek rû di herimandina herîndarî de</string>
+    <string name="amplify_ui_liveness_challenge_connecting">Têkilî danîn</string>
+    <string name="amplify_ui_liveness_challenge_verifying">Pîştrast kirin</string>
+    <string name="amplify_ui_liveness_challenge_a11y_cancel_content_description">Têkiliyê betal bike</string>
+</resources>

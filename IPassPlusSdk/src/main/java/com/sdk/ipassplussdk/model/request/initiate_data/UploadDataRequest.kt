@@ -14,6 +14,7 @@ data class UploadDataRequest (
     @SerializedName("email"              ) var email            : String?  = null,
     @SerializedName("workflow"           ) var workflow         : String?  = null,
     @SerializedName("source"             ) var source           : String?  = null,
+    @SerializedName("language"           ) var language         : String?  = null,
     @SerializedName("idv_data"           ) var idvData          : JsonObject? = null,
 
 )

@@ -3,6 +3,7 @@ package com.sdk.ipassplussdk.core
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.apis.ApiClient
 import com.sdk.ipassplussdk.apis.ApiInterface
 import com.sdk.ipassplussdk.apis.ResultListener
@@ -48,7 +49,7 @@ object TransactionDetail {
                     }
                 })
         } else {
-            completion.onError(Constants.NO_INTERNET_TEXT)
+            completion.onError(context.getString(R.string.internet_connection_not_found))
         }
     }
 }

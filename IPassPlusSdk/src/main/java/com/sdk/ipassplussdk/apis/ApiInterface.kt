@@ -27,7 +27,8 @@ interface ApiInterface {
 
     @GET(ServerUrls.url_customer_access)
     fun checkAccess(
-        @Query("token") token : String
+        @Query("token") token : String,
+        @Query("language") language : String
     ): Call<CustomerAccessResponse>
 
     @POST(ServerUrls.url_aws_session_create)
