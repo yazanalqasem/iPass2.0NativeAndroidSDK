@@ -257,7 +257,7 @@ To reduce the APK size, follow these steps:
            }
 ```
 
-
+-----
 
 ### Configuring Webhook URL in Your iPass Account
 
@@ -269,7 +269,7 @@ Steps to Configure the Webhook URL:
 - Navigate to the "My Profile" section
 - Click the "Edit" button, enter your webhook URL in the designated field, and click "Update." Your webhook URL will now be added.
 
-
+-----
 
 # Support
 Please refer to our [support policy](https://ipass-mena.com/contact/) for more information about Mobile SDK support.
