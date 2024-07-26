@@ -16,21 +16,21 @@
     <string name="binding_viewgroup_is_null"> Binding Viewgroup هیچە</string>
     <string name="data_processing_error">هەڵە لە پڕۆسەکردنی زانیاری</string>
 
-    <string name="amplify_ui_liveness_get_ready_center_face_label">Rûyê xwe navber bike</string>
-    <string name="amplify_ui_liveness_get_ready_photosensitivity_title">Hişyardariya Hestiyariya Roniyê</string>
-    <string name="amplify_ui_liveness_get_ready_photosensitivity_description">Ev test di rengên cuda de dikeve. Agahdar be ger hestiyarîya ronan hebe.</string>
-    <string name="amplify_ui_liveness_get_ready_a11y_photosensitivity_icon_content_description">Agahîyên hestiyariya roniyê</string>
-    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_title">Hişyardariya Hestiyariya Roniyê</string>
-    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_description">Hin kesan dikarin dema ku ronahiyên rengîn dibîn, vegerên epilepsî hebin. Hişyar be ger te an endamên malbata te nexweşiya epilepsî heye.</string>
-    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_dismiss">Fahm kir</string>
-    <string name="amplify_ui_liveness_get_ready_begin_check">Pêşnaxa Vîdyoyê Dest Pê Bike</string>
+    <string name="amplify_ui_liveness_get_ready_center_face_label">دەموچاوت ناوەندی بکەرەوە</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_title">ئاگاداری هەستیاری وێنە</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_description">ئەم پشکنینە ڕەنگی جیاواز دەچڕێنێت. ئەگەر هەستیاریت بە ڕووناکی وریابە.</string>
+    <string name="amplify_ui_liveness_get_ready_a11y_photosensitivity_icon_content_description">زانیاری هەستیاری وێنە</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_title">ئاگاداری هەستیاری وێنە</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_description">هەندێک کەس لەوانەیە تووشی گرژبوونی سەرئێشە بن کاتێک بەر گڵۆپی ڕەنگاوڕەنگ دەکەون. وریایی بەکاربهێنە ئەگەر تۆ، یان هەر کەسێک لە خێزانەکەت، حاڵەتی سەرئێشەی هەیە.</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_dismiss">دەستم کەوت</string>
+    <string name="amplify_ui_liveness_get_ready_begin_check">دەستپێکردنی پشکنینی ڤیدیۆ</string>
     <string name="amplify_ui_liveness_challenge_recording_indicator_label">REC</string>
-    <string name="amplify_ui_liveness_challenge_instruction_hold_face_during_freshness">Bixteyn</string>
-    <string name="amplify_ui_liveness_challenge_instruction_move_face_further">Pêşve bike</string>
-    <string name="amplify_ui_liveness_challenge_instruction_move_face_closer">Nêzîk bike</string>
-    <string name="amplify_ui_liveness_challenge_instruction_move_face">Rûyê li ber kamerayê vegerînin</string>
-    <string name="amplify_ui_liveness_challenge_instruction_multiple_faces_detected">Tenê yek rû di herimandina herîndarî de</string>
-    <string name="amplify_ui_liveness_challenge_connecting">Têkilî danîn</string>
-    <string name="amplify_ui_liveness_challenge_verifying">Pîştrast kirin</string>
-    <string name="amplify_ui_liveness_challenge_a11y_cancel_content_description">Têkiliyê betal bike</string>
+    <string name="amplify_ui_liveness_challenge_instruction_hold_face_during_freshness">هێشتا ڕابگرە</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_further">بگەڕێوە بۆ دواوە</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_closer">نزیکتر بچۆ</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face">دەموچاو لەبەردەم کامێرادا بجوڵێنە</string>
+    <string name="amplify_ui_liveness_challenge_instruction_multiple_faces_detected">تەنها یەک ڕووخسار بۆ هەر پشکنینێک</string>
+    <string name="amplify_ui_liveness_challenge_connecting">پەیوەندیکردن</string>
+    <string name="amplify_ui_liveness_challenge_verifying">دڵنیاکردنەوە</string>
+    <string name="amplify_ui_liveness_challenge_a11y_cancel_content_description">تەحەدای هەڵوەشاندنەوە</string>
 </resources>
