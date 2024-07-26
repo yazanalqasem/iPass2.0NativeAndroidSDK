@@ -24,6 +24,7 @@
     - [Get Document Data](#get-document-data)
     - [SDK Properties](#sdk-properties)
     - [Language Localization](#add-multiple-languages-optional)
+    - [Configuring Webhook URL in Your iPass Account](configuring-webhook-url-in-your-ipass-account)
 - [Support](#support)
 - [Licenses](#licenses)
 - [Contact](#contact)
@@ -254,6 +255,20 @@ To reduce the APK size, follow these steps:
            // Packages Installation failed!
            }
 ```
+
+
+
+### Configuring Webhook URL in Your iPass Account
+
+Your iPass account can be set up to send an HTTP POST request with JSON data to a specified URL upon the completion of an onboarding process. This URL can be configured in the account profile section of the iPass web application.
+
+Steps to Configure the Webhook URL:
+
+- Log in to your iPass dashboard.
+- Navigate to the "My Profile" section
+- Click the "Edit" button, enter your webhook URL in the designated field, and click "Update." Your webhook URL will now be added.
+
+
 
 # Support
 Please refer to our [support policy](https://ipass-mena.com/contact/) for more information about Mobile SDK support.
