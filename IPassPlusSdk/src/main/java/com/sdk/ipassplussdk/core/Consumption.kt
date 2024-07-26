@@ -3,11 +3,14 @@ package com.sdk.ipassplussdk.core
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.google.gson.Gson
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.apis.ApiClient
 import com.sdk.ipassplussdk.apis.ApiInterface
 import com.sdk.ipassplussdk.apis.ResultListener
 import com.sdk.ipassplussdk.model.response.authentication.AuthenticationResponse
 import com.sdk.ipassplussdk.model.response.consumption.CustomerAccessResponse
+import com.sdk.ipassplussdk.model.response.errorbody.ErrorBodyResponse
 import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import retrofit2.Call
@@ -21,11 +24,12 @@ object Consumption {
     fun checkAccess(
         context: Context,
         token: String,
+        language:String,
         completion: ResultListener<CustomerAccessResponse>
     ) {
         if (InternetConnectionService.networkAvailable(context)) {
             ApiClient("")?.create(ApiInterface::class.java)!!
-                .checkAccess(token).enqueue(object :
+                .checkAccess(token, language).enqueue(object :
                     Callback<CustomerAccessResponse> {
                     override fun onResponse(
                         call: Call<CustomerAccessResponse>,
@@ -35,9 +39,11 @@ object Consumption {
                             completion.onSuccess(response.body()!!)
                         } else {
                             try {
-                                completion.onError(response.body()?.message!!)
+                              //  completion.onError(response.body()?.message!!)
+                                val errBody = Gson().fromJson(response.errorBody()?.string(), ErrorBodyResponse::class.java)
+                                completion.onError(errBody?.message!!)
                             }catch (e: Exception){
-                                completion.onError("Something went wrong")
+                                completion.onError(context.getString(R.string.something_went_wrong))
                             }
                         }
                     }
@@ -47,7 +53,7 @@ object Consumption {
                     }
                 })
         } else {
-            completion.onError(Constants.NO_INTERNET_TEXT)
+            completion.onError(context.getString(R.string.internet_connection_not_found))
         }
 
     }

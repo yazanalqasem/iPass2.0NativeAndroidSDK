@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="internet_connection_not_found">Connexion Internet non trouvée</string>
+    <string name="database_initialized_successfully">Base de données initialisée avec succès</string>
+    <string name="facescannernotconfigured">FaceScanner non configuré</string>
+    <string name="scanning_cancelled">Numérisation annulée</string>
+    <string name="something_went_wrong_with_nfc">Une erreur est survenue avec NFC</string>
+    <string name="something_went_wrong">Une erreur est survenue</string>
+    <string name="email_is_required">Email est requis</string>
+    <string name="user_token_is_required">Jeton utilisateur est requis</string>
+    <string name="app_token_is_required">Jeton d\'application est requis</string>
+    <string name="flow_id_is_required">Flow ID est requis</string>
+    <string name="social_media_email_is_required">Email de réseau social est requis</string>
+    <string name="phone_number_is_required">Numéro de téléphone est requis</string>
+    <string name="binding_viewgroup_is_null">Binding Viewgroup est null</string>
+    <string name="password_is_required">Mot de passe est requis</string>
+    <string name="data_processing_error">Erreur de traitement des données</string>
+
+    <string name="amplify_ui_liveness_get_ready_center_face_label">Centrez votre visage</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_title">Avertissement de photosensibilité</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_description">Cette vérification clignote de différentes couleurs. Soyez prudent si vous êtes photosensible.</string>
+    <string name="amplify_ui_liveness_get_ready_a11y_photosensitivity_icon_content_description">Informations sur la photosensibilité</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_title">Avertissement de photosensibilité</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_description">Certaines personnes peuvent souffrir de crises d\'épilepsie lorsqu\'elles sont exposées à des lumières colorées. Soyez prudent si vous, ou un membre de votre famille, souffrez d\'épilepsie.</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_dismiss">Compris</string>
+    <string name="amplify_ui_liveness_get_ready_begin_check">Démarrer la vérification vidéo</string>
+    <string name="amplify_ui_liveness_challenge_recording_indicator_label">REC</string>
+    <string name="amplify_ui_liveness_challenge_instruction_hold_face_during_freshness">Tenez tranquille</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_further">Reculer</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_closer">Rapprochez-vous</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face">Déplacer le visage devant la caméra</string>
+    <string name="amplify_ui_liveness_challenge_instruction_multiple_faces_detected">Un seul visage par chèque</string>
+    <string name="amplify_ui_liveness_challenge_connecting">Connexion</string>
+    <string name="amplify_ui_liveness_challenge_verifying">Vérification</string>
+    <string name="amplify_ui_liveness_challenge_a11y_cancel_content_description">Annuler le défi</string>
+</resources>

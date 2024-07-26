@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="internet_connection_not_found">انٹرنیٹ کنکشن نہیں ملا</string>
+    <string name="database_initialized_successfully">ڈیٹا بیس کامیابی سے انیشلائز ہو گیا</string>
+    <string name="facescannernotconfigured"> FaceScanner کنفیگر نہیں ہوا</string>
+    <string name="scanning_cancelled">اسکین منسوخ کر دیا گیا</string>
+    <string name="something_went_wrong_with_nfc"> NFC کے ساتھ کچھ غلط ہو گیا</string>
+    <string name="something_went_wrong">کچھ غلط ہو گیا</string>
+    <string name="email_is_required">ای میل درکار ہے</string>
+    <string name="password_is_required">پاس ورڈ درکار ہے</string>
+    <string name="user_token_is_required">صارف ٹوکن درکار ہے</string>
+    <string name="app_token_is_required">ایپ ٹوکن درکار ہے</string>
+    <string name="flow_id_is_required"> Flow ID درکار ہے</string>
+    <string name="social_media_email_is_required">سوشل میڈیا ای میل درکار ہے</string>
+    <string name="phone_number_is_required"> فون نمبر درکار ہے</string>
+    <string name="binding_viewgroup_is_null">Binding Viewgroup null ہے</string>
+    <string name="data_processing_error">ڈیٹا پروسیسنگ میں خرابی</string>
+
+    <string name="amplify_ui_liveness_get_ready_center_face_label">اپنا چہرہ درمیان میں رکھیں</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_title">فوٹو سنسیٹیویٹی وارننگ</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_description">یہ چیک مختلف رنگوں کی روشنیوں کو چمکاتا ہے۔ اگر آپ فوٹو سنسیٹیو ہیں تو احتیاط کریں۔</string>
+    <string name="amplify_ui_liveness_get_ready_a11y_photosensitivity_icon_content_description">فوٹو سنسیٹیویٹی کی معلومات</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_title">فوٹو سنسیٹیویٹی وارننگ</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_description">کچھ لوگ جب رنگین روشنیوں کے سامنے ہوتے ہیں تو مرگی کے دورے پڑ سکتے ہیں۔ اگر آپ یا آپ کے خاندان میں کسی کو مرگی ہے تو احتیاط کریں۔</string>
+    <string name="amplify_ui_liveness_get_ready_photosensitivity_dialog_dismiss">سمجھ گیا</string>
+    <string name="amplify_ui_liveness_get_ready_begin_check">ویڈیو چیک شروع کریں</string>
+    <string name="amplify_ui_liveness_challenge_recording_indicator_label">ریکارڈنگ</string>
+    <string name="amplify_ui_liveness_challenge_instruction_hold_face_during_freshness">حرکت نہ کریں</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_further">پیچھے ہٹیں</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face_closer">قریب آئیں</string>
+    <string name="amplify_ui_liveness_challenge_instruction_move_face">چہرہ کیمرے کے سامنے رکھیں</string>
+    <string name="amplify_ui_liveness_challenge_instruction_multiple_faces_detected">ہر چیک میں صرف ایک چہرہ ہونا چاہیے</string>
+    <string name="amplify_ui_liveness_challenge_connecting">کنیکٹ ہو رہا ہے</string>
+    <string name="amplify_ui_liveness_challenge_verifying">تصدیق ہو رہی ہے</string>
+    <string name="amplify_ui_liveness_challenge_a11y_cancel_content_description">چیلنج منسوخ کریں</string>
+</resources>

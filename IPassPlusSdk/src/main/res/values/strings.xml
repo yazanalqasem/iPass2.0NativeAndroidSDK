@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="internet_connection_not_found">Internet Connection not found</string>
+    <string name="database_initialized_successfully">Database Initialized Successfully</string>
+    <string name="facescannernotconfigured">FaceScannerNotConfigured</string>
+    <string name="scanning_cancelled">Scanning Cancelled</string>
+    <string name="something_went_wrong_with_nfc">Something went wrong with NFC.</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="email_is_required">Email is required</string>
+    <string name="password_is_required">Password is required</string>
+    <string name="user_token_is_required">User Token is required</string>
+    <string name="app_token_is_required">App Token is required</string>
+    <string name="flow_id_is_required">Flow ID is required</string>
+    <string name="social_media_email_is_required">Social Media Email is required</string>
+    <string name="phone_number_is_required">Phone Number is required</string>
+    <string name="binding_viewgroup_is_null">Binding Viewgroup is null</string>
+    <string name="data_processing_error">Data processing error!</string>
+
+</resources>

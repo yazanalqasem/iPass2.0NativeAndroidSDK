@@ -8,6 +8,7 @@ import com.regula.documentreader.api.DocumentReader
 import com.regula.documentreader.api.completions.IDocumentReaderPrepareCompletion
 import com.regula.documentreader.api.errors.DocumentReaderException
 import com.regula.documentreader.api.params.DocReaderConfig
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion
 import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
@@ -40,7 +41,7 @@ object InitializeDatabase {
                 initializeReader(it, context, completion)
             }
         } else {
-            completion.onCompleted(false, Constants.NO_INTERNET_TEXT)
+            completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
         }
     }
 

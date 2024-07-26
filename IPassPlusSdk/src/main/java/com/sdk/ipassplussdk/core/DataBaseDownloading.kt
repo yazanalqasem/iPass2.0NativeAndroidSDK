@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion
 import com.sdk.ipassplussdk.ui.FaceScannerData
 import com.sdk.ipassplussdk.ui.InitializeDatabase
@@ -17,7 +18,7 @@ object DataBaseDownloading {
     @RequiresApi(Build.VERSION_CODES.O)
     fun initialization(context: Context, completion: InitializeDatabaseCompletion){
         if (!InternetConnectionService.networkAvailable(context)) {
-            completion.onCompleted(false, Constants.NO_INTERNET_TEXT)
+            completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
             return
         }
 
@@ -54,10 +55,11 @@ object DataBaseDownloading {
 //            Log.e("dismissProgress## ","dismissProgress")
             if (it.equals("FaceScannerConfigured")) {
 //                Log.e("FaceScannerConfigured## ","FaceScannerConfigured")
-                completion.onCompleted(true, "Database Initialized Successfully")
+                completion.onCompleted(true,
+                    context.getString(R.string.database_initialized_successfully))
             } else {
 //                Log.e("FaceScannerNotConfigured## ","FaceScannerNotConfigured $it")
-                completion.onCompleted(false, "FaceScannerNotConfigured")
+                completion.onCompleted(false, context.getString(R.string.facescannernotconfigured))
             }
         }
     }

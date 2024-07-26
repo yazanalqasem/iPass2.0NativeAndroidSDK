@@ -19,6 +19,7 @@ import com.regula.documentreader.api.errors.DocReaderRfidException
 import com.regula.documentreader.api.errors.DocumentReaderException
 import com.regula.documentreader.api.results.DocumentReaderNotification
 import com.regula.documentreader.api.results.DocumentReaderResults
+import com.sdk.ipassplussdk.R
 
 
 @SuppressLint("StaticFieldLeak")
@@ -91,11 +92,12 @@ object DocumentReaderData {
                             rawResult = results?.rawResult
                             callback.invoke(true, rawResult!!)
                         } else if (rfidAction == DocReaderAction.TIMEOUT) {
-                            Toast.makeText(context,"Something went wrong with NFC.",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context,
+                                context!!.getString(R.string.something_went_wrong_with_nfc),Toast.LENGTH_SHORT).show()
                             rawResult = results?.rawResult
                             callback.invoke(true, rawResult!!)
                         } else if (rfidAction == DocReaderAction.ERROR) {
-                            Toast.makeText(context,"Something went wrong with NFC.",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context!!.getString(R.string.something_went_wrong_with_nfc),Toast.LENGTH_SHORT).show()
                             rawResult = results?.rawResult
                             callback.invoke(true, rawResult!!)
                         } else {
@@ -113,7 +115,7 @@ object DocumentReaderData {
         else if (action == DocReaderAction.CANCEL) {
                 if (DocumentReader.Instance().functionality().isManualMultipageMode)
                     DocumentReader.Instance().functionality().edit().setManualMultipageMode(false).apply()
-                callback.invoke(false, "Scanning Cancelled")
+                callback.invoke(false, context!!.getString(R.string.scanning_cancelled))
             }
             else if (action == DocReaderAction.ERROR) {
                 callback.invoke(false, error?.message!!)
