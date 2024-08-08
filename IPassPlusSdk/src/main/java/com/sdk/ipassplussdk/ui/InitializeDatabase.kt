@@ -1,18 +1,21 @@
 package com.sdk.ipassplussdk.ui
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.regula.documentreader.api.DocumentReader
-import com.regula.documentreader.api.completions.IDocumentReaderPrepareCompletion
-import com.regula.documentreader.api.errors.DocumentReaderException
 import com.regula.documentreader.api.params.DocReaderConfig
 import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion
-import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.utils.LicenseUtil
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+
 
 object InitializeDatabase {
 
@@ -45,24 +48,32 @@ object InitializeDatabase {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initializeReader(
         license: ByteArray,
         context: Context, completion: InitializeDatabaseCompletion
     ) {
-        DocumentReader.Instance().prepareDatabase(context, "Full_authOther", object :
-            IDocumentReaderPrepareCompletion {
-            override fun onPrepareProgressChanged(progress: Int) {
-                // getting progress
-                completion.onProgressChanged(progress)
-//                Log.e("progressChanged## ",progress.toString())
-            }
-
-            @RequiresApi(Build.VERSION_CODES.O)
-            override fun onPrepareCompleted(status: Boolean, error: DocumentReaderException?) {
+//        DocumentReader.Instance().prepareDatabase(context, object :
+//            IDocumentReaderPrepareCompletion {
+//            override fun onPrepareProgressChanged(progress: Int) {
+//                // getting progress
+//                completion.onProgressChanged(progress)
+////                Log.e("progressChanged## ",progress.toString())
+//            }
+//
+//            @RequiresApi(Build.VERSION_CODES.O)
+//            override fun onPrepareCompleted(status: Boolean, error: DocumentReaderException?) {
 //                Log.e("onPrepareCompleted","onPrepareCompleted"+status+"==="+error?.message.toString()+"==="+error.toString())
                 // database was prepared
+
+
+
+        val customDbPath = "/IPassPlusSdk/src/main/assets/JOR_AllPassports/db.dat"
+//        val customDbPath = getFile(context).path
+        val config = DocReaderConfig(license)
+
                 DocumentReader.Instance()
-                    .initializeReader(context, DocReaderConfig(license)) {
+                    .initializeReader(context, config) {
                             success, error_initializeReader ->
 
 //                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
@@ -76,8 +87,8 @@ object InitializeDatabase {
                             completion.onCompleted(false, error_initializeReader?.message.toString())
                         }
                     }
-            }
-        })
+//            }
+//        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -104,5 +115,33 @@ object InitializeDatabase {
     }
 
 
+    private fun getFile(context: Context): File {
+        val am: AssetManager = context.getAssets()
+        val inputStream = am.open("IPassPlusSdk/src/main/assets/JOR_AllPassports/db.dat")
+        val file: File? = createFileFromInputStream(inputStream)
+        return file!!
+    }
+
+    private fun createFileFromInputStream(inputStream: InputStream): File? {
+        try {
+            val f: File = File("my_file_name")
+            val outputStream: OutputStream = FileOutputStream(f)
+            val buffer = ByteArray(1024)
+            var length = 0
+
+            while ((inputStream.read(buffer).also { length = it }) > 0) {
+                outputStream.write(buffer, 0, length)
+            }
+
+            outputStream.close()
+            inputStream.close()
+
+            return f
+        } catch (e: IOException) {
+            //Logging exception
+        }
+
+        return null
+    }
 
 }

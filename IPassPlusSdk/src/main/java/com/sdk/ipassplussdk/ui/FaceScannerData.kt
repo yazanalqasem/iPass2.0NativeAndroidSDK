@@ -25,10 +25,14 @@ object FaceScannerData {
             Amplify.configure(context)
             callback.invoke("FaceScannerConfigured")
         } catch (e: AmplifyException) {
-//            Log.e("AmplifyException## ","AmplifyException  -  ${e.message}")
-//            Log.e("AmplifyException## ","AmplifyException  -  ${e.recoverySuggestion}")
-//            Log.e("AmplifyException## ","AmplifyException  -  ${e.localizedMessage}")
-            callback.invoke("Error Initializing Face Scanner")
+            Log.e("AmplifyException## ","AmplifyException  -  ${e.message}")
+            Log.e("AmplifyException## ","AmplifyException  -  ${e.recoverySuggestion}")
+            Log.e("AmplifyException## ","AmplifyException  -  ${e.localizedMessage}")
+            if (e.message.equals("Amplify has already been configured.")) {
+                callback.invoke("FaceScannerConfigured")
+            } else {
+                callback.invoke("Error Initializing Face Scanner")
+            }
         }
     }
     fun initFaceDetector(context: Context, sessionId: String, bindView:ViewGroup, callback: (String) -> Unit) {
@@ -61,7 +65,7 @@ object FaceScannerData {
         (context as Activity).getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        );
+        )
 
         bindView.addView(composeView) // Add ComposeView to parentViewGroup
     }

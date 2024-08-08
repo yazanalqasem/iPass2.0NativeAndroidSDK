@@ -62,9 +62,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("com.regula.documentreader:api:7.2.9754+@aar") {
+    implementation("com.regula.documentreader:api:7.3.9948+@aar") {
         this.isTransitive = true
     }
+    implementation("com.regula.documentreader.core:fullauthrfid:7.3.11255@aar")
 //    implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.1")
 
     // FaceLivenessDetector dependency
