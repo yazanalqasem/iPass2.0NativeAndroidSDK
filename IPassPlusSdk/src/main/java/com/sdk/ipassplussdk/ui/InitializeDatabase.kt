@@ -3,6 +3,7 @@ package com.sdk.ipassplussdk.ui
 import android.content.Context
 import android.content.res.AssetManager
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.regula.documentreader.api.DocumentReader
 import com.regula.documentreader.api.params.DocReaderConfig
@@ -25,6 +26,7 @@ object InitializeDatabase {
     @RequiresApi(Build.VERSION_CODES.O)
     fun InitDatabase(context: Context, completion: InitializeDatabaseCompletion){
         if (InternetConnectionService.networkAvailable(context)) {
+            Log.e("Init", "Database")
             if (LicenseUtil.readFileFromAssets("SdkLicense", "sdk.license", context) == null
                 && !isInitializedByBleDevice
             ) completion.onCompleted(false, "License not found")
@@ -72,20 +74,21 @@ object InitializeDatabase {
 //        val customDbPath = getFile(context).path
         val config = DocReaderConfig(license)
 
-        DocumentReader.Instance()
-            .initializeReader(context, config) {
-                                               success, error_initializeReader ->
+                DocumentReader.Instance()
+                    .initializeReader(context, config) {
+                            success, error_initializeReader ->
 
 //                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
 //                        Log.e("initialized","initialized"+success+"=="+error_initializeReader.toString())
-                if (success) {
-                    onInitComplete(completion)
-                }
-                else {
+                        if (success) {
+//                            Log.e("success","success")
+                            onInitComplete(completion)
+                        }
+                        else {
 //                            Log.e("error","error_initializeReader?.message.toString()")
-                    completion.onCompleted(false, error_initializeReader?.message.toString())
-                }
-            }
+                            completion.onCompleted(false, error_initializeReader?.message.toString())
+                        }
+                    }
 //            }
 //        })
     }
