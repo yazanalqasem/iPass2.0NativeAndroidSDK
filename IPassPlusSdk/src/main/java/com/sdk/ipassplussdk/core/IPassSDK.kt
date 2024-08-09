@@ -455,7 +455,7 @@ object iPassSDKManger {
                         ip.toString(),
                         flowId,
 //                        "androidSdk",
-                        "Android v1.0.12(CustomDb)",
+                        "Android v1.0.13(CustomDbBasic)",
                         "0",
                         callback
                     )
@@ -464,7 +464,7 @@ object iPassSDKManger {
                         context, email, userToken, appToken, socialMediaEmail, phoneNumber,
                         ip.toString(),
 //                        flowId, "androidSdk", bindingView, callback
-                        flowId, "Android v1.0.12(CustomDb)", bindingView, callback
+                        flowId, "Android v1.0.13(CustomDbBasic)", bindingView, callback
                     )
                 }
             } catch (e: Exception ) {
