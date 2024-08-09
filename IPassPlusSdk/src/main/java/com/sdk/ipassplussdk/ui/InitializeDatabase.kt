@@ -71,22 +71,21 @@ object InitializeDatabase {
 //        val customDbPath = "/storage/emulated/0/Android/data/com.app.ipassplus/JOR_AllPassports"
 //        val customDbPath = getFile(context).path
         val config = DocReaderConfig(license)
-//        DocumentReader.Instance().removeDatabase(context)
-                DocumentReader.Instance()
-                    .initializeReader(context, config) {
-                            success, error_initializeReader ->
+
+        DocumentReader.Instance()
+            .initializeReader(context, config) {
+                                               success, error_initializeReader ->
 
 //                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
 //                        Log.e("initialized","initialized"+success+"=="+error_initializeReader.toString())
-                        if (success) {
-//                            Log.e("success","success")
-                            onInitComplete(completion)
-                        }
-                        else {
+                if (success) {
+                    onInitComplete(completion)
+                }
+                else {
 //                            Log.e("error","error_initializeReader?.message.toString()")
-                            completion.onCompleted(false, error_initializeReader?.message.toString())
-                        }
-                    }
+                    completion.onCompleted(false, error_initializeReader?.message.toString())
+                }
+            }
 //            }
 //        })
     }
