@@ -3,7 +3,6 @@ package com.sdk.ipassplussdk.ui
 import android.content.Context
 import android.content.res.AssetManager
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.regula.documentreader.api.DocumentReader
 import com.regula.documentreader.api.params.DocReaderConfig
@@ -26,7 +25,6 @@ object InitializeDatabase {
     @RequiresApi(Build.VERSION_CODES.O)
     fun InitDatabase(context: Context, completion: InitializeDatabaseCompletion){
         if (InternetConnectionService.networkAvailable(context)) {
-            Log.e("Init", "Database")
             if (LicenseUtil.readFileFromAssets("SdkLicense", "sdk.license", context) == null
                 && !isInitializedByBleDevice
             ) completion.onCompleted(false, "License not found")
@@ -73,7 +71,7 @@ object InitializeDatabase {
 //        val customDbPath = "/storage/emulated/0/Android/data/com.app.ipassplus/JOR_AllPassports"
 //        val customDbPath = getFile(context).path
         val config = DocReaderConfig(license)
-
+        DocumentReader.Instance().removeDatabase(context)
                 DocumentReader.Instance()
                     .initializeReader(context, config) {
                             success, error_initializeReader ->
