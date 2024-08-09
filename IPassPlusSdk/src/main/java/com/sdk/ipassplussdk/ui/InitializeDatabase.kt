@@ -71,7 +71,7 @@ object InitializeDatabase {
 //        val customDbPath = "/storage/emulated/0/Android/data/com.app.ipassplus/JOR_AllPassports"
 //        val customDbPath = getFile(context).path
         val config = DocReaderConfig(license)
-        DocumentReader.Instance().removeDatabase(context)
+//        DocumentReader.Instance().removeDatabase(context)
                 DocumentReader.Instance()
                     .initializeReader(context, config) {
                             success, error_initializeReader ->
