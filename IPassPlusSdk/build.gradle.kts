@@ -65,7 +65,7 @@ dependencies {
     implementation("com.regula.documentreader:api:7.3.9948+@aar") {
         this.isTransitive = true
     }
-    implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.14")
+//    implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.14")
 
     // FaceLivenessDetector dependency
     implementation ("com.amplifyframework.ui:liveness:1.2.1")
@@ -100,7 +100,7 @@ project.afterEvaluate {
                 from(components["release"])
                 groupId = "com.sdk.ipassplussdk"
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "1.0.14"
+                version = "1.0.15"
             }
         }
     }
