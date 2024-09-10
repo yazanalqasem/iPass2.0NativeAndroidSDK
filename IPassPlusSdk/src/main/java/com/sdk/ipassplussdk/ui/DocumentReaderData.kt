@@ -40,7 +40,7 @@ object DocumentReaderData {
         DocumentReader.Instance().processParams().returnUncroppedImage = true
         DocumentReader.Instance().functionality().edit().setShowSkipNextPageButton(false).apply()
 
-        val scannerConfig = ScannerConfig.Builder(Scenario.SCENARIO_FULL_PROCESS).build()
+        val scannerConfig = ScannerConfig.Builder(Scenario.SCENARIO_FULL_AUTH).build()
         DocumentReader.Instance().showScanner(context, scannerConfig, completion)
     }
 
@@ -86,6 +86,10 @@ object DocumentReaderData {
                         error: DocumentReaderException?
                     ) {
                         if (rfidAction == DocReaderAction.COMPLETE) {
+//                            DocumentReader.Instance().processParams().debugSaveLogs = true
+//                            DocumentReader.Instance().processParams().debugSaveCroppedImages = true
+//                            DocumentReader.Instance().processParams().debugSaveRFIDSession = true
+//                            Log.e("####", "sessionLogFolder ${DocumentReader.Instance().processParams().sessionLogFolder}")
                             rawResult = results_RFIDReader?.rawResult!!
                             callback.invoke(true, rawResult!!)
                         } else if (rfidAction == DocReaderAction.CANCEL) {
@@ -107,6 +111,7 @@ object DocumentReaderData {
                     }
                 })
             } else {
+//                DocumentReader.Instance().processParams().sessionLogFolder
                 rawResult = results?.rawResult
                 callback.invoke(true, rawResult!!)
             }

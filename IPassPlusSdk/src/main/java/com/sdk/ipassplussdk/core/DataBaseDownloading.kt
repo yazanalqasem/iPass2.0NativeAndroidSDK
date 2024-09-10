@@ -14,9 +14,8 @@ import com.sdk.ipassplussdk.views.ProgressManager
 
 object DataBaseDownloading {
 
-    //    initialize database for scanning (needs to be initialized at least once before scanning)
     @RequiresApi(Build.VERSION_CODES.O)
-    fun initialization(context: Context, completion: InitializeDatabaseCompletion){
+    fun initializePreProcessedDb(context: Context, dbName: String, completion: InitializeDatabaseCompletion){
         if (!InternetConnectionService.networkAvailable(context)) {
             completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
             return
@@ -24,7 +23,37 @@ object DataBaseDownloading {
 
         ProgressManager.showProgress(context)
 
-        InitializeDatabase.InitDatabase(context, object : InitializeDatabaseCompletion {
+        InitializeDatabase.initCustomDb(context, dbName, object : InitializeDatabaseCompletion {
+            override fun onProgressChanged(progress: Int) {
+                completion.onProgressChanged(progress)
+            }
+
+            override fun onCompleted(status: Boolean, message: String?) {
+                if (status) {
+//                    Log.e("onCompleted## ",message!!)
+                    configureFaceScanner(context, completion)
+                } else {
+//                    Log.e("onCompleted##1 ",message!!)
+                    ProgressManager.dismissProgress()
+                    completion.onCompleted(status, message)
+                }
+            }
+
+        })
+    }
+
+
+    //    initialize database for scanning (needs to be initialized at least once before scanning)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun initializeDynamicDb(context: Context, completion: InitializeDatabaseCompletion){
+        if (!InternetConnectionService.networkAvailable(context)) {
+            completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
+            return
+        }
+
+        ProgressManager.showProgress(context)
+
+        InitializeDatabase.initOnlineDb(context, object : InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
                 completion.onProgressChanged(progress)
             }

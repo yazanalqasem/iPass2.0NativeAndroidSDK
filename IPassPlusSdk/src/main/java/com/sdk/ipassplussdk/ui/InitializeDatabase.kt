@@ -3,13 +3,19 @@ package com.sdk.ipassplussdk.ui
 import android.content.Context
 import android.content.res.AssetManager
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.regula.documentreader.api.DocumentReader
+import com.regula.documentreader.api.completions.IDocumentReaderPrepareCompletion
+import com.regula.documentreader.api.errors.DocumentReaderException
+import com.regula.documentreader.api.internal.utils.Common
 import com.regula.documentreader.api.params.DocReaderConfig
 import com.sdk.ipassplussdk.R
+import com.sdk.ipassplussdk.enums.DatabaseType
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.utils.LicenseUtil
+import com.sdk.ipassplussdk.utils.SharedPrefUtil
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -22,8 +28,8 @@ object InitializeDatabase {
     @Transient
     var isInitializedByBleDevice: Boolean = false
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun InitDatabase(context: Context, completion: InitializeDatabaseCompletion){
+/*    @RequiresApi(Build.VERSION_CODES.O)
+    fun InitDatabase(context: Context, dbName: String, completion: InitializeDatabaseCompletion){
         if (InternetConnectionService.networkAvailable(context)) {
             if (LicenseUtil.readFileFromAssets("SdkLicense", "sdk.license", context) == null
                 && !isInitializedByBleDevice
@@ -38,57 +44,136 @@ object InitializeDatabase {
                 context
             )
 
-            license?.let {
-                // Show progress indicator
-//                initDialog = showProgressDialog(context, "Initializing")
-                initializeReader(it, context, completion)
+            val pref = SharedPrefUtil(context)
+
+            if (pref.getDbType().equals(dbName)) {
+                if (dbName.equals(DatabaseType.ONLINE)) initOnlineDb(license!!, context, completion) else initCustomDb("database/${dbName}.dat", license!!, context, completion)
+            } else {
+                DocumentReader.Instance().removeDatabase(context)
+                DocumentReader.Instance().deinitializeReader()
+                pref.setDbType(dbName)
+                if (dbName.equals(DatabaseType.ONLINE)) initOnlineDb(license!!, context, completion) else initCustomDb("database/${dbName}.dat", license!!, context, completion)
             }
+
+//            license?.let {
+//                initCustomDb("database/${dbName}.dat", it, context, completion)
+//            }
+        } else {
+            completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
+        }
+    }*/
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun initOnlineDb(
+        context: Context, completion: InitializeDatabaseCompletion
+    ) {
+
+        if (InternetConnectionService.networkAvailable(context)) {
+            if (LicenseUtil.readFileFromAssets("SdkLicense", "sdk.license", context) == null
+                && !isInitializedByBleDevice
+            ) completion.onCompleted(false, "License not found")
+
+            if (DocumentReader.Instance().isReady)
+                onInitComplete(completion)
+
+            val license = LicenseUtil.readFileFromAssets(
+                "SdkLicense",
+                "sdk.license",
+                context
+            )
+
+            val pref = SharedPrefUtil(context)
+
+            if (!pref.getDbType().equals("")) {
+                DocumentReader.Instance().removeDatabase(context)
+                DocumentReader.Instance().deinitializeReader()
+                pref.setDbType("")
+//                Log.e("@@@@@", "dbName")
+            }
+//            Log.e("@@@@", "dbName")
+
+//            DocumentReader.Instance().processParams().debugSaveLogs = true
+//            DocumentReader.Instance().processParams().debugSaveCroppedImages = true
+//            DocumentReader.Instance().processParams().debugSaveRFIDSession = true
+
+            DocumentReader.Instance().prepareDatabase(context,"Full_authOther", object :
+                IDocumentReaderPrepareCompletion {
+                override fun onPrepareProgressChanged(progress: Int) {
+                    // getting progress
+//                    Log.e("@@@@", progress.toString())
+                    completion.onProgressChanged(progress)
+                }
+
+                @RequiresApi(Build.VERSION_CODES.O)
+                override fun onPrepareCompleted(status: Boolean, error: DocumentReaderException?) {
+//                 database was prepared
+                    val config = DocReaderConfig(license!!)
+
+                    DocumentReader.Instance().initializeReader(context, config) {
+                            success, error_initializeReader ->
+                        if (success) {
+                            onInitComplete(completion)
+                        }
+                        else {
+                            completion.onCompleted(false, error_initializeReader?.message.toString())
+                        }
+                    }
+                }
+            })
+
+
         } else {
             completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun initializeReader(
-        license: ByteArray,
-        context: Context, completion: InitializeDatabaseCompletion
-    ) {
-//        DocumentReader.Instance().prepareDatabase(context, object :
-//            IDocumentReaderPrepareCompletion {
-//            override fun onPrepareProgressChanged(progress: Int) {
-//                // getting progress
-//                completion.onProgressChanged(progress)
-////                Log.e("progressChanged## ",progress.toString())
-//            }
-//
-//            @RequiresApi(Build.VERSION_CODES.O)
-//            override fun onPrepareCompleted(status: Boolean, error: DocumentReaderException?) {
-//                Log.e("onPrepareCompleted","onPrepareCompleted"+status+"==="+error?.message.toString()+"==="+error.toString())
-                // database was prepared
+    fun initCustomDb(context: Context, dbName: String, completion: InitializeDatabaseCompletion) {
 
+        if (InternetConnectionService.networkAvailable(context)) {
+            if (LicenseUtil.readFileFromAssets("SdkLicense", "sdk.license", context) == null
+                && !isInitializedByBleDevice
+            ) completion.onCompleted(false, "License not found")
 
+            if (DocumentReader.Instance().isReady)
+                onInitComplete(completion)
 
-//        val customDbPath = "/storage/emulated/0/Android/data/com.app.ipassplus/JOR_AllPassports"
-//        val customDbPath = getFile(context).path
-        val config = DocReaderConfig(license)
+            val license = LicenseUtil.readFileFromAssets(
+                "SdkLicense",
+                "sdk.license",
+                context
+            )
 
-        DocumentReader.Instance()
-            .initializeReader(context, config) {
-                                               success, error_initializeReader ->
+            val pref = SharedPrefUtil(context)
 
-//                        DocumentReader.Instance().customization().edit().setShowHelpAnimation(false).apply()
-//                        Log.e("initialized","initialized"+success+"=="+error_initializeReader.toString())
-                if (success) {
-                    onInitComplete(completion)
-                }
-                else {
-//                            Log.e("error","error_initializeReader?.message.toString()")
-                    completion.onCompleted(false, error_initializeReader?.message.toString())
-                }
+            if (!pref.getDbType().equals(dbName)) {
+                DocumentReader.Instance().removeDatabase(context)
+                DocumentReader.Instance().deinitializeReader()
+                pref.setDbType(dbName)
+//                Log.e("@@@@@", dbName)
             }
-//            }
-//        })
+//            Log.e("@@@@", dbName)
+
+            val config = DocReaderConfig(license!!, Common.getFileContentFromAsset(context, "database/$dbName.dat"))
+            config. setLicenseUpdate (true)
+
+            DocumentReader.Instance()
+                .initializeReader(context, config) {
+                        success, error_initializeReader ->
+                    if (success) {
+                        onInitComplete(completion)
+                    }
+                    else {
+                        completion.onCompleted(false, error_initializeReader?.message.toString())
+                    }
+                }
+
+        } else {
+            completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
+        }
+
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onInitComplete(completion: InitializeDatabaseCompletion) {
@@ -107,40 +192,42 @@ object InitializeDatabase {
 //                return@setLocalizationCallback ""
 //            return@setLocalizationCallback null
 //        }
-        completion.onCompleted(true,"Success")
-//Log.e("completed","completed")
-//        FaceScannerData.configureFaceScanner(context, callback)
 
-    }
+        DocumentReader.Instance().processParams().apply {
 
+            setLogs(true)
 
-    private fun getFile(context: Context): File {
-        val am: AssetManager = context.getAssets()
-        val inputStream = am.open("E:\\AndroidStudioProjects24\\iPass2.0NativeAndroidSDK\\app\\src\\main\\assets\\JOR_AllPassports\\db.dat")
-        val file: File? = createFileFromInputStream(inputStream)
-        return file!!
-    }
+            timeout = 150.0
+            timeoutFromFirstDetect = 50.0
+            timeoutFromFirstDocType  = 50.0
+//            minDPI = 400
 
-    private fun createFileFromInputStream(inputStream: InputStream): File? {
-        try {
-            val f: File = File("my_file_name")
-            val outputStream: OutputStream = FileOutputStream(f)
-            val buffer = ByteArray(1024)
-            var length = 0
-
-            while ((inputStream.read(buffer).also { length = it }) > 0) {
-                outputStream.write(buffer, 0, length)
+            respectImageQuality = true
+            imageQA.apply {
+                focusCheck = true
+                glaresCheck = true
+                focusCheck = true
+                colornessCheck = true
             }
-
-            outputStream.close()
-            inputStream.close()
-
-            return f
-        } catch (e: IOException) {
-            //Logging exception
         }
 
-        return null
+//        DocumentReader.Instance().version?.apply {
+//
+//            Log.e("Version", "api - ${this.api!!}")
+//            Log.e("Version", "core - ${this.core!!}")
+//            Log.e("Version", "coreMode - ${this.coreMode!!}")
+//
+//            Log.e("Version", "DB ID - ${this.database?.databaseID!!}")
+//            Log.e("Version", "DB Description - ${this.database?.databaseDescription!!}")
+//            Log.e("Version", "DB version - ${this.database?.version!!}")
+//            Log.e("Version", "DB date - ${this.database?.date!!}")
+//            Log.e("Version", "DB countriesNumber - ${this.database?.countriesNumber!!}")
+//            Log.e("Version", "DB documentsNumber - ${this.database?.documentsNumber!!}")
+////            Log.e("Version", "DB size - ${this.database?.size!!}")
+//        }
+
+        completion.onCompleted(true,"Success")
+
     }
 
 }

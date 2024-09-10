@@ -32,6 +32,7 @@ import com.sdk.ipassplussdk.apis.ResultListener
 import com.sdk.ipassplussdk.core.Consumption
 import com.sdk.ipassplussdk.core.DataBaseDownloading
 import com.sdk.ipassplussdk.core.iPassSDKManger
+import com.sdk.ipassplussdk.enums.DatabaseType
 import com.sdk.ipassplussdk.model.response.authentication.AuthenticationResponse
 import com.sdk.ipassplussdk.model.response.consumption.CustomerAccessResponse
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 //        loadModule(coreModule)
 
 //        progressDialog = showProgressDialog(this@MainActivity, "Initializing")
-        DataBaseDownloading.initialization(this, object: InitializeDatabaseCompletion {
+        DataBaseDownloading.initializePreProcessedDb(this, DatabaseType.FULL_AUTH, object: InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
 //                progressDialog.setTitle("Downloading database $progress%")
                 Log.e("onProgressChanged", "$progress")
