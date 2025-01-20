@@ -92,9 +92,9 @@ object InitializeDatabase {
             }
 //            Log.e("@@@@", "dbName")
 
-//            DocumentReader.Instance().processParams().debugSaveLogs = true
-//            DocumentReader.Instance().processParams().debugSaveCroppedImages = true
-//            DocumentReader.Instance().processParams().debugSaveRFIDSession = true
+            DocumentReader.Instance().processParams().debugSaveLogs = true
+            DocumentReader.Instance().processParams().debugSaveCroppedImages = true
+            DocumentReader.Instance().processParams().debugSaveRFIDSession = true
 
             DocumentReader.Instance().prepareDatabase(context,"Full_authOther", object :
                 IDocumentReaderPrepareCompletion {
@@ -178,6 +178,7 @@ object InitializeDatabase {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onInitComplete(completion: InitializeDatabaseCompletion) {
 
+//        DocumentReader.Instance().functionality().edit().setCameraSize(3840, 2160).apply()
 //        DocumentReader.Instance().processParams().debugSaveLogs = false
 //        DocumentReader.Instance().processParams().debugSaveCroppedImages = false
 //        DocumentReader.Instance().processParams().debugSaveImages = false
@@ -193,23 +194,17 @@ object InitializeDatabase {
 //            return@setLocalizationCallback null
 //        }
 
-        DocumentReader.Instance().processParams().apply {
 
-            setLogs(true)
-
-            timeout = 150.0
-            timeoutFromFirstDetect = 50.0
-            timeoutFromFirstDocType  = 50.0
-//            minDPI = 400
-
-            respectImageQuality = true
-            imageQA.apply {
-                focusCheck = true
-                glaresCheck = true
-                focusCheck = true
-                colornessCheck = true
-            }
-        }
+        DocumentReader.Instance().processParams().multipageProcessing = true
+        DocumentReader.Instance().processParams().dateFormat = "dd-mm-yyyy"
+        DocumentReader.Instance().processParams().returnUncroppedImage = true
+        DocumentReader.Instance().functionality().edit().setShowSkipNextPageButton(false).apply()
+        DocumentReader.Instance().functionality().edit().setCameraSize(3840, 2160).apply()
+        DocumentReader.Instance().processParams().respectImageQuality = true
+        DocumentReader.Instance().processParams().imageQA.focusCheck = true
+        DocumentReader.Instance().processParams().imageQA.glaresCheck = true
+        DocumentReader.Instance().processParams().imageQA.focusCheck = true
+        DocumentReader.Instance().processParams().imageQA.colornessCheck = true
 
 //        DocumentReader.Instance().version?.apply {
 //

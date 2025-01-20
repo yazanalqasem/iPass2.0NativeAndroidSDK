@@ -19,6 +19,7 @@ import com.sdk.ipassplussdk.model.response.initiate_data.UploadDataResponse
 import com.sdk.ipassplussdk.model.response.transaction_details.TransactionDetailResponse
 import com.sdk.ipassplussdk.ui.DocumentReaderData
 import com.sdk.ipassplussdk.ui.FaceScannerData.initFaceDetector
+import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.views.ProgressManager
 import java.net.URL
@@ -29,7 +30,7 @@ import java.util.UUID
 object iPassSDKManger {
 
     private var sid = ""
-    private var rawResult: String? = null
+    private var rawResult: String? = "{}"
 
 
     //    authentication
@@ -342,6 +343,12 @@ object iPassSDKManger {
         uploaddataRequest.sessionId = sessionId
         val rawData = JsonParser().parse(rawResult).asJsonObject
         uploaddataRequest.idvData = rawData
+//        if (false) { //
+//            val jonfcDataJson = JsonParser().parse(Constants.jsonObj).asJsonObject
+//            uploaddataRequest.jonfcData = jonfcDataJson
+//        }
+//        val jonfcDataJson = JsonParser().parse("{}").asJsonObject
+
 
         InitiateData.uploadData(context, token,uploaddataRequest, object : ResultListener<UploadDataResponse> {
             override fun onSuccess(response: UploadDataResponse?) {

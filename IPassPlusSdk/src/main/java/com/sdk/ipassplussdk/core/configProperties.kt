@@ -35,6 +35,12 @@ object configProperties {
         DocumentReader.Instance().processParams().useAuthenticityCheck = true
         DocumentReader.Instance().processParams().authenticityParams = authenticityParams
 
+        DocumentReader.Instance().processParams().respectImageQuality = true
+        DocumentReader.Instance().processParams().imageQA.focusCheck = true
+        DocumentReader.Instance().processParams().imageQA.glaresCheck = true
+        DocumentReader.Instance().processParams().imageQA.focusCheck = true
+        DocumentReader.Instance().processParams().imageQA.colornessCheck = true
+
 //        Log.e("####", "Hologram $value")
 //        DocumentReader.Instance().processParams().checkHologram = value
     }

@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var splitInstallManager: SplitInstallManager
     private val coreModule = "document_reader_sdk"
     private val email = "ipassandhar@yopmail.com"
-    private val apptoken = "eyJhbGciOiJIUzI1NiJ9.aXBhc3Ntb2JzZGtAeW9wbWFpbC5jb21pcGFzcyBpcGFzcyAgIDcxNWFkYTI4LWFmODEtNGM5MC1iY2IyLTJmZjc1Mjg1YzhkYg.OfsTPtj41geOVQ9riQdTpCVEgWqfoqfpva93xez2xJk"
+//    private val email = "testconsip@yopmail.com"
     private val password = "Admin@123#"
 
 
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 //        loadModule(coreModule)
 
 //        progressDialog = showProgressDialog(this@MainActivity, "Initializing")
-        DataBaseDownloading.initializePreProcessedDb(this, DatabaseType.FULL_AUTH, object: InitializeDatabaseCompletion {
+        DataBaseDownloading.initializeDynamicDb(this, object: InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
 //                progressDialog.setTitle("Downloading database $progress%")
                 Log.e("onProgressChanged", "$progress")
