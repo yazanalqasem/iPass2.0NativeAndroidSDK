@@ -67,7 +67,7 @@ dependencies {
     }
 //    implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.14")
 
-//    implementation ("com.regula.documentreader.core:fullauthrfid:7.5.12087@aar")
+    implementation ("com.regula.documentreader.core:fullauthrfid:7.5.12087@aar")
 
     // FaceLivenessDetector dependency
 //    implementation ("com.amplifyframework.ui:liveness:1.2.1")

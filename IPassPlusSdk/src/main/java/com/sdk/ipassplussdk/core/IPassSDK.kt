@@ -23,6 +23,7 @@ import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.views.ProgressManager
 import java.net.URL
+import java.util.HashMap
 import java.util.Locale
 import java.util.UUID
 
@@ -370,13 +371,10 @@ object iPassSDKManger {
 
 
     //    returns a list of available Processing Scenarios
-    fun getScenariosList() {
-        val list = arrayListOf(
-            "10031",
-            "10032",
-            "10011",
-            "10015",
-            )
+    fun getWorkFlows(): Array<HashMap<String, String>> {
+
+        return Workflows.getList()
+
     }
 
 
@@ -462,7 +460,7 @@ object iPassSDKManger {
                         ip.toString(),
                         flowId,
 //                        "androidSdk",
-                        "Android v1.0.29(CustomDb)",
+                        "Android v2.15(CustomDb)",
                         "0",
                         callback
                     )
@@ -471,7 +469,7 @@ object iPassSDKManger {
                         context, email, userToken, appToken, socialMediaEmail, phoneNumber,
                         ip.toString(),
 //                        flowId, "androidSdk", bindingView, callback
-                        flowId, "Android v1.0.29(CustomDb)", bindingView, callback
+                        flowId, "Android v2.15(CustomDb)", bindingView, callback
                     )
                 }
             } catch (e: Exception ) {

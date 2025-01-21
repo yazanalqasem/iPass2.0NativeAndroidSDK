@@ -31,7 +31,7 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
 //    private val apptoken = "eyJhbGciOiJIUzI1NiJ9.dGVzdExpYzEyM0B5b3BtYWlsLmNvbUFqYXkga3VtYXIgICA0OTgxM2NiYi05ZDdiLTRlNTEtYWIwYy1hZDkwMzFjMmZmYjk.XPX5jCeTDKwVXL0R-fvV24swfORF2jDNVHsNnReXYCQ"
     private val apptoken = "eyJhbGciOiJIUzI1NiJ9.aXBhc3NhbmRoYXJAeW9wbWFpbC5jb21tb2JpbGUgdGVhbSAgIDFhYzlkYzYyLWFjZmUtNDEwOC04Y2Q2LTExY2I0OTA5NDFmMw.jTDHn4B6yOaPGpK0y2G2vvSxTcybaV7icfGkGltIelo"
     val phoneNumber = "7894563210"
-    val flowId = "10031"
+    val flowId = "10015"
     val socialMediaEmail = "ipassmobisdk@yopmail.com"
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -51,7 +51,7 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        configProperties.needHologramDetection(true)
+//        configProperties.needHologramDetection(true)
         val scenarioList = arrayListOf(
             ScenariosItemModel(R.drawable.full2,"Full Processing",getString(R.string.processing_scenario_for_obtaining_all_document_data),true),
             ScenariosItemModel(R.drawable.bankkk, "Bank Card",getString(R.string.procesing_scenario_for_obtaning_bank_card_data),false),
@@ -74,8 +74,14 @@ class DashboardFragment : Fragment(), ScenariosListAdapter.OnClickListener {
     override fun onScenarioPickClick(position: Int, model: ScenariosItemModel) {
         iPassSDKManger.startScanningProcess(
             context = requireContext(),
-            email = email, userToken = MainActivity.userToken,
-            appToken = apptoken,socialMediaEmail = socialMediaEmail, phoneNumber = phoneNumber, flowId =  flowId , bindingView = binding.root as ViewGroup) {
+            email = email,
+            userToken = MainActivity.userToken,
+            appToken = apptoken,
+            socialMediaEmail = socialMediaEmail,
+            phoneNumber = phoneNumber,
+            flowId =  flowId,
+            bindingView = binding.root as ViewGroup
+        ) {
             status, message ->
             if (status) {
                 Log.e("startScanningProcess", message)
