@@ -92,9 +92,9 @@ object InitializeDatabase {
             }
 //            Log.e("@@@@", "dbName")
 
-            DocumentReader.Instance().processParams().debugSaveLogs = true
-            DocumentReader.Instance().processParams().debugSaveCroppedImages = true
-            DocumentReader.Instance().processParams().debugSaveRFIDSession = true
+            DocumentReader.Instance().processParams().debugSaveLogs = false
+            DocumentReader.Instance().processParams().debugSaveCroppedImages = false
+            DocumentReader.Instance().processParams().debugSaveRFIDSession = false
 
             DocumentReader.Instance().prepareDatabase(context,"Full_authOther", object :
                 IDocumentReaderPrepareCompletion {
@@ -154,6 +154,7 @@ object InitializeDatabase {
             }
 //            Log.e("@@@@", dbName)
 
+//            val config = DocReaderConfig(license!!, Common.getFileContentFromAsset(context, "database/db_full_auth_other.dat"))
             val config = DocReaderConfig(license!!, Common.getFileContentFromAsset(context, "database/$dbName.dat"))
             config. setLicenseUpdate (true)
 

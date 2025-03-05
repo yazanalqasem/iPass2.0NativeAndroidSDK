@@ -1,9 +1,7 @@
 package com.sdk.ipassplussdk.core
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Build
-import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.google.gson.JsonParser
@@ -19,10 +17,15 @@ import com.sdk.ipassplussdk.model.response.initiate_data.UploadDataResponse
 import com.sdk.ipassplussdk.model.response.transaction_details.TransactionDetailResponse
 import com.sdk.ipassplussdk.ui.DocumentReaderData
 import com.sdk.ipassplussdk.ui.FaceScannerData.initFaceDetector
-import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
 import com.sdk.ipassplussdk.views.ProgressManager
-import java.net.URL
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
 import java.util.HashMap
 import java.util.Locale
 import java.util.UUID
@@ -40,7 +43,8 @@ object iPassSDKManger {
         context: Context,
         email: String?,
         password: String?,
-        completion: ResultListener<AuthenticationResponse>) {
+        completion: ResultListener<AuthenticationResponse>,
+    ) {
 
         if (!InternetConnectionService.networkAvailable(context)) {
             completion.onError(context.getString(R.string.internet_connection_not_found))
@@ -132,8 +136,7 @@ object iPassSDKManger {
         Consumption.checkAccess(context, appToken, language = currentLang, object : ResultListener<CustomerAccessResponse> {
             override fun onSuccess(response: CustomerAccessResponse?) {
                 if (response?.message.equals("sucess")) {
-                        showDocScanner(context, appToken, userToken, email, socialMediaEmail, phoneNumber, flowId,  bindingView, callback)
-
+                    showDocScanner(context, appToken, userToken, email, socialMediaEmail, phoneNumber, flowId,  bindingView, callback)
                 } else {
                     ProgressManager.dismissProgress()
                     callback.invoke(false, response?.message!!)
@@ -166,36 +169,32 @@ object iPassSDKManger {
             if (status) {
 
                 this.rawResult = message
-                getIPAddress(
-                    context,
-                    appToken,
-                    email,
-                    socialMediaEmail,
-                    phoneNumber,
-                    flowId,
-                    userToken,
-                    bindingView,
-                    callback
-                )
+                var ip = ""
+                CoroutineScope(Dispatchers.IO).launch {
+                    ip = getPublicIpAddress().toString()
+                }
 
-//                if (flowId.equals("10015")) {
-//                    uploadData(
-//                        context,
-//                        appToken,
-//                        email,
-//                        socialMediaEmail,
-//                        phoneNumber,
-//                        getIPAddress(true),
-//                        flowId,
-//                        "Android v2.12",
-//                        "0",
-//                        callback
-//                    )
-//                } else {
-//                    faceSessionCreateRequest(context, email, userToken, appToken,socialMediaEmail,phoneNumber,
-//                        getIPAddress(true),
-//                        flowId,"Android v2.12", bindingView, callback)
-//                }
+                if (flowId.equals("10015")) {
+                    uploadData(
+                        context,
+                        appToken,
+                        email,
+                        socialMediaEmail,
+                        phoneNumber,
+                        ip,
+                        flowId,
+                        "Android v2.15",
+                        "0",
+                        callback
+                    )
+                } else {
+                    faceSessionCreateRequest(
+                        context, email, userToken, appToken, socialMediaEmail, phoneNumber,
+                        ip,
+                        flowId, "Android v2.15", bindingView, callback
+                    )
+                }
+
             } else {
                 ProgressManager.dismissProgress()
                 callback.invoke(false, message)
@@ -274,9 +273,7 @@ object iPassSDKManger {
         callback: (Boolean, String) -> Unit
     ) {
         ProgressManager.dismissProgress()
-//        Log.e("@@@@@", sessionId)
         initFaceDetector(context, sessionId, bindingView) {
-//            if (it.equals("success")) {
                     ProgressManager.showProgress(context)
                     uploadData(
                         context,
@@ -290,22 +287,8 @@ object iPassSDKManger {
                         sessionId,
                         callback
                     )
-//                } else {
-//                ProgressManager.dismissProgress()
-//                callback.invoke(false, it)
-//            }
     }
     }
-
-//    fun getDeviceLanguage(): String {
-//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            // For Android N  above
-//            Locale.getDefault().language
-//        } else {
-//            // For older versions of Android
-//            Locale.getDefault().language
-//        }
-//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadData(
@@ -320,17 +303,8 @@ object iPassSDKManger {
         sessionId: String,
         callback: (Boolean, String) -> Unit
     ) {
-        //  val defaultLocale = Resources.getSystem().getConfiguration().locale;
-      //       Log.d("locale","$defaultLocale")
 
         val getDeviceLanguage = Locale.getDefault().language
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Locale.getDefault().language
-        }
-        else{
-            Locale.getDefault().language
-        }
-      //    Log.d("locale","$currentLang")
 
         val uploaddataRequest = UploadDataRequest()
         uploaddataRequest.email = userEmail
@@ -344,12 +318,6 @@ object iPassSDKManger {
         uploaddataRequest.sessionId = sessionId
         val rawData = JsonParser().parse(rawResult).asJsonObject
         uploaddataRequest.idvData = rawData
-//        if (false) { //
-//            val jonfcDataJson = JsonParser().parse(Constants.jsonObj).asJsonObject
-//            uploaddataRequest.jonfcData = jonfcDataJson
-//        }
-//        val jonfcDataJson = JsonParser().parse("{}").asJsonObject
-
 
         InitiateData.uploadData(context, token,uploaddataRequest, object : ResultListener<UploadDataResponse> {
             override fun onSuccess(response: UploadDataResponse?) {
@@ -358,11 +326,6 @@ object iPassSDKManger {
             }
             override fun onError(exception: String) {
                 ProgressManager.dismissProgress()
-//                Log.e("@@@message", exception)
-//                val obj = JSONObject(exception)
-//
-//                val value = obj.getString("message")
-//                Log.e("@@@message", value)
                 callback.invoke(false, exception)
             }
         })
@@ -412,75 +375,28 @@ object iPassSDKManger {
         // Generate a random UUID
         val myUuid = UUID.randomUUID()
         val myUuidAsString = myUuid.toString()
-//        Log.e("Sid", myUuidAsString)
 
         return myUuidAsString
     }
 
+    suspend fun getPublicIpAddress(): String? = withContext(Dispatchers.IO) {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url("https://api.ipify.org")
+            .header("User-Agent", "Mozilla/5.0")
+            .build()
 
-    /**
-     * Get IP address from first non-localhost interface
-     * @param useIPv4   true=return ipv4, false=return ipv6
-     * @return  address or empty string
-     */
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getIPAddress(
-        context: Context,
-        appToken: String,
-        email: String,
-        socialMediaEmail: String,
-        phoneNumber: String,
-        flowId: String,
-        userToken: String,
-        bindingView: ViewGroup,
-        callback: (status: Boolean, message: String) -> Unit
-    ): String {
-        var ip: String? = null
-        val thread = Thread {
-            try {
-                val url = URL("https://api.ipify.org")
-                val connection = url.openConnection()
-                connection.setRequestProperty(
-                    "User-Agent",
-                    "Mozilla/5.0"
-                ) // Set a User-Agent to avoid HTTP 403 Forbidden error
-                val inputStream = connection.getInputStream()
-                val s = java.util.Scanner(inputStream, "UTF-8").useDelimiter("\\A")
-                ip = s.next()
-
-
-                if (flowId.equals("10015")) {
-//                    Log.e("IPPPPP", ip.toString())
-                    uploadData(
-                        context,
-                        appToken,
-                        email,
-                        socialMediaEmail,
-                        phoneNumber,
-                        ip.toString(),
-                        flowId,
-//                        "androidSdk",
-                        "Android v2.15(CustomDb)",
-                        "0",
-                        callback
-                    )
-                } else {
-                    faceSessionCreateRequest(
-                        context, email, userToken, appToken, socialMediaEmail, phoneNumber,
-                        ip.toString(),
-//                        flowId, "androidSdk", bindingView, callback
-                        flowId, "Android v2.15(CustomDb)", bindingView, callback
-                    )
+        try {
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    throw IOException("Unexpected code $response")
                 }
-            } catch (e: Exception ) {
-                e.printStackTrace();
-                callback.invoke(false, e.message.toString())
+                response.body?.string()
             }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
         }
-
-        thread.start();
-//        Log.e("IPPPPPPPPPPPP", ip.toString())
-        return ip.toString()
     }
 
 }

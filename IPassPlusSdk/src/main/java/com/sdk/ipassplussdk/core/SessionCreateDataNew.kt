@@ -23,7 +23,7 @@ object SessionCreateDataNew {
         completion: ResultListener<SessionCreateResponseNew>
     ) {
         if (InternetConnectionService.networkAvailable(context)) {
-            ApiClient("")?.create(ApiInterface::class.java)!!
+            ApiClient(context, "")?.create(ApiInterface::class.java)!!
                 .createSession(token, request).enqueue(object :
                     Callback<SessionCreateResponseNew>{
                     override fun onResponse(

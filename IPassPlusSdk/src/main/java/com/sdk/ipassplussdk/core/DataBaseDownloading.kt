@@ -10,12 +10,13 @@ import com.sdk.ipassplussdk.ui.FaceScannerData
 import com.sdk.ipassplussdk.ui.InitializeDatabase
 import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
+import com.sdk.ipassplussdk.utils.SharedPrefUtil
 import com.sdk.ipassplussdk.views.ProgressManager
 
 object DataBaseDownloading {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun initializePreProcessedDb(context: Context, dbName: String, completion: InitializeDatabaseCompletion){
+    fun initializePreProcessedDb(context: Context, dbName: String, completion: InitializeDatabaseCompletion, serverUrl: String = ""){
         if (!InternetConnectionService.networkAvailable(context)) {
             completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
             return
@@ -23,6 +24,7 @@ object DataBaseDownloading {
 
         ProgressManager.showProgress(context)
 
+        SharedPrefUtil(context).putString(Constants.BASE_URL, "${serverUrl}node/api/v1/ipass/")
         InitializeDatabase.initCustomDb(context, dbName, object : InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
                 completion.onProgressChanged(progress)
@@ -45,14 +47,14 @@ object DataBaseDownloading {
 
     //    initialize database for scanning (needs to be initialized at least once before scanning)
     @RequiresApi(Build.VERSION_CODES.O)
-    fun initializeDynamicDb(context: Context, completion: InitializeDatabaseCompletion){
+    fun initializeDynamicDb(context: Context, completion: InitializeDatabaseCompletion, serverUrl: String = ""){
         if (!InternetConnectionService.networkAvailable(context)) {
             completion.onCompleted(false, context.getString(R.string.internet_connection_not_found))
             return
         }
 
         ProgressManager.showProgress(context)
-
+        SharedPrefUtil(context).putString(Constants.BASE_URL, "${serverUrl}node/api/v1/ipass/")
         InitializeDatabase.initOnlineDb(context, object : InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
                 completion.onProgressChanged(progress)

@@ -2,7 +2,6 @@ package com.sdk.ipassplussdk.core
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.sdk.ipassplussdk.R
@@ -12,10 +11,7 @@ import com.sdk.ipassplussdk.apis.ResultListener
 import com.sdk.ipassplussdk.model.request.initiate_data.UploadDataRequest
 import com.sdk.ipassplussdk.model.response.errorbody.ErrorBodyResponse
 import com.sdk.ipassplussdk.model.response.initiate_data.UploadDataResponse
-import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
-import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,7 +26,7 @@ object InitiateData {
         completion: ResultListener<UploadDataResponse>
     ) {
         if (InternetConnectionService.networkAvailable(context)) {
-            ApiClient("")?.create(ApiInterface::class.java)!!
+            ApiClient(context, "")?.create(ApiInterface::class.java)!!
                 .uploadData( token, request ).enqueue(object :
                     Callback<UploadDataResponse> {
                     override fun onResponse(

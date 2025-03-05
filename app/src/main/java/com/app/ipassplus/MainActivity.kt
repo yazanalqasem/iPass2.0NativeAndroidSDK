@@ -31,6 +31,7 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.sdk.ipassplussdk.apis.ResultListener
 import com.sdk.ipassplussdk.core.Consumption
 import com.sdk.ipassplussdk.core.DataBaseDownloading
+import com.sdk.ipassplussdk.core.configProperties
 import com.sdk.ipassplussdk.core.iPassSDKManger
 import com.sdk.ipassplussdk.enums.DatabaseType
 import com.sdk.ipassplussdk.model.response.authentication.AuthenticationResponse
@@ -44,8 +45,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressDialog: AlertDialog
     private lateinit var splitInstallManager: SplitInstallManager
     private val coreModule = "document_reader_sdk"
-    private val email = "ipassandhar@yopmail.com"
-//    private val email = "testconsip@yopmail.com"
+//    private val email = "testingonprem123@yopmail.com"
+//    private val email = "mrverma91378@gmail.com"
+//    private val email = "ipassandhar@yopmail.com"
+    private val email = "testonpremcust123@yopmail.com"
     private val password = "Admin@123#"
 
 
@@ -66,7 +69,47 @@ class MainActivity : AppCompatActivity() {
 //        loadModule(coreModule)
 
 //        progressDialog = showProgressDialog(this@MainActivity, "Initializing")
-        DataBaseDownloading.initializeDynamicDb(this, object: InitializeDatabaseCompletion {
+//        iPassSDKManger.baseUrl = "http://192.168.14.122/node/api/v1/ipass/"
+
+
+
+        supportActionBar?.hide()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initNavigation()
+
+//                dynamicDb()
+        preProcessedDb()
+
+       // data()
+       // transactionData()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun preProcessedDb() {
+        DataBaseDownloading.initializePreProcessedDb(this, serverUrl = "http://192.168.14.20/", dbName = DatabaseType.FULL_DB, completion = object: InitializeDatabaseCompletion {
+            override fun onProgressChanged(progress: Int) {
+//                progressDialog.setTitle("Downloading database $progress%")
+                Log.e("onProgressChanged", "$progress")
+            }
+
+            override fun onCompleted(
+                status: Boolean,
+                message: String?
+            ) {
+//                progressDialog.hide()
+                Log.e("onCompleted", message!!)
+//               Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+                if (status) getToken()
+            }
+
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun dynamicDb() {
+
+        DataBaseDownloading.initializeDynamicDb(this, serverUrl = "http://192.168.14.20/", completion = object: InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
 //                progressDialog.setTitle("Downloading database $progress%")
                 Log.e("onProgressChanged", "$progress")
@@ -84,13 +127,6 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-
-        supportActionBar?.hide()
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initNavigation()
-       // data()
-       // transactionData()
     }
 
 
@@ -122,9 +158,11 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getToken() {
-        iPassSDKManger.UserOnboardingProcess(this@MainActivity, email, password, object : ResultListener<AuthenticationResponse> {
+        configProperties.needHologramDetection(false)
+        iPassSDKManger.UserOnboardingProcess(this@MainActivity, email, password, completion = object : ResultListener<AuthenticationResponse> {
             override fun onSuccess(response: AuthenticationResponse?) {
                 val authToken = response?.user?.token!!
+                Log.e("sdfsdf", authToken)
                 Companion.userToken = authToken
             }
 

@@ -28,7 +28,7 @@ object Consumption {
         completion: ResultListener<CustomerAccessResponse>
     ) {
         if (InternetConnectionService.networkAvailable(context)) {
-            ApiClient("")?.create(ApiInterface::class.java)!!
+            ApiClient(context, "")?.create(ApiInterface::class.java)!!
                 .checkAccess(token, language).enqueue(object :
                     Callback<CustomerAccessResponse> {
                     override fun onResponse(
