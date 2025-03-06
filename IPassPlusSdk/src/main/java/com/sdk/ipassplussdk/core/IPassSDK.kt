@@ -170,10 +170,10 @@ object iPassSDKManger {
 
                 this.rawResult = message
                 var ip = ""
+                val source = "Android v1.0.31"
                 CoroutineScope(Dispatchers.IO).launch {
                     ip = getPublicIpAddress().toString()
                 }
-
                 if (flowId.equals("10015")) {
                     uploadData(
                         context,
@@ -183,7 +183,7 @@ object iPassSDKManger {
                         phoneNumber,
                         ip,
                         flowId,
-                        "Android v2.15",
+                        source,
                         "0",
                         callback
                     )
@@ -191,7 +191,7 @@ object iPassSDKManger {
                     faceSessionCreateRequest(
                         context, email, userToken, appToken, socialMediaEmail, phoneNumber,
                         ip,
-                        flowId, "Android v2.15", bindingView, callback
+                        flowId, source, bindingView, callback
                     )
                 }
 

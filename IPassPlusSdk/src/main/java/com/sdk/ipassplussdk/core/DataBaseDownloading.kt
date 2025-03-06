@@ -10,6 +10,7 @@ import com.sdk.ipassplussdk.ui.FaceScannerData
 import com.sdk.ipassplussdk.ui.InitializeDatabase
 import com.sdk.ipassplussdk.utils.Constants
 import com.sdk.ipassplussdk.utils.InternetConnectionService
+import com.sdk.ipassplussdk.utils.ServerUrls
 import com.sdk.ipassplussdk.utils.SharedPrefUtil
 import com.sdk.ipassplussdk.views.ProgressManager
 
@@ -24,7 +25,12 @@ object DataBaseDownloading {
 
         ProgressManager.showProgress(context)
 
-        SharedPrefUtil(context).putString(Constants.BASE_URL, "${serverUrl}node/api/v1/ipass/")
+        if (!serverUrl.isNullOrEmpty()) {
+            SharedPrefUtil(context).putString(Constants.BASE_URL, "${serverUrl}node/api/v1/ipass/")
+        } else {
+            SharedPrefUtil(context).putString(Constants.BASE_URL, ServerUrls.base_url)
+        }
+
         InitializeDatabase.initCustomDb(context, dbName, object : InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
                 completion.onProgressChanged(progress)
@@ -54,7 +60,11 @@ object DataBaseDownloading {
         }
 
         ProgressManager.showProgress(context)
-        SharedPrefUtil(context).putString(Constants.BASE_URL, "${serverUrl}node/api/v1/ipass/")
+
+        if (!serverUrl.isNullOrEmpty()) {
+            SharedPrefUtil(context).putString(Constants.BASE_URL, "${serverUrl}node/api/v1/ipass/")
+        }
+
         InitializeDatabase.initOnlineDb(context, object : InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
                 completion.onProgressChanged(progress)

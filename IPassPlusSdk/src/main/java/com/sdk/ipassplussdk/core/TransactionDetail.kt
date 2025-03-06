@@ -37,9 +37,9 @@ object TransactionDetail {
                             completion.onSuccess(response.body()!!)
                         } else {
                             try {
-                                completion.onError(ErrorHandler(response,"user"))
+                                completion.onError(response.errorBody()?.string().toString())
                             }catch (e: Exception){
-
+                                completion.onError(context.getString(R.string.something_went_wrong))
                             }
                         }
                     }

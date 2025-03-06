@@ -37,15 +37,7 @@ object InitiateData {
                             completion.onSuccess(response.body())
                         } else {
                             try {
-//                                if (response.body() != null && !response.body()?.message.equals("")) {
-//                                    completion.onError(response.body()?.message.toString())
-//                                } else if (response.message().isNullOrEmpty()) {
-                                        val errBody = Gson().fromJson(response.errorBody()?.string(), ErrorBodyResponse::class.java)
-                                        completion.onError(errBody?.message!!)
-//                                }
-//                            else {
-//                                    completion.onError(response.message())
-//                                }
+                                completion.onError(response.errorBody()?.string().toString())
                             }catch (e:Exception){
                                 e.printStackTrace()
                                 completion.onError(context.getString(R.string.data_processing_error))

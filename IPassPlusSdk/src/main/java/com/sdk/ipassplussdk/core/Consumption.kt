@@ -39,9 +39,7 @@ object Consumption {
                             completion.onSuccess(response.body()!!)
                         } else {
                             try {
-                              //  completion.onError(response.body()?.message!!)
-                                val errBody = Gson().fromJson(response.errorBody()?.string(), ErrorBodyResponse::class.java)
-                                completion.onError(errBody?.message!!)
+                                completion.onError(response.errorBody()?.string().toString())
                             }catch (e: Exception){
                                 completion.onError(context.getString(R.string.something_went_wrong))
                             }

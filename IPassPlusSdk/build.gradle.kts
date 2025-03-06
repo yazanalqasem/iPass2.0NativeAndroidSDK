@@ -62,12 +62,12 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("com.regula.documentreader:api:7.5.10340@aar") {
+    implementation("com.regula.documentreader:api:7.5.10412@aar") {
         this.isTransitive = true
     }
 //    implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.14")
 
-//    implementation ("com.regula.documentreader.core:fullauthrfid:7.5.12087@aar")
+//    implementation ("com.regula.documentreader.core:fullauthrfid:7.5.12253@aar")
 
     // FaceLivenessDetector dependency
 //    implementation ("com.amplifyframework.ui:liveness:1.2.1")
@@ -111,7 +111,7 @@ project.afterEvaluate {
                 groupId = "com.sdk.ipassplussdk"
 
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "1.0.30"
+                version = "1.0.31"
             }
         }
     }

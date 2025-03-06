@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
     private val coreModule = "document_reader_sdk"
 //    private val email = "testingonprem123@yopmail.com"
 //    private val email = "mrverma91378@gmail.com"
-//    private val email = "ipassandhar@yopmail.com"
-    private val email = "testonpremcust123@yopmail.com"
+//private val email = "testonpremcust123@yopmail.com"
+    private val email = "ipassandhar@yopmail.com"
     private val password = "Admin@123#"
 
 
@@ -84,10 +84,10 @@ class MainActivity : AppCompatActivity() {
        // data()
        // transactionData()
     }
-
+//http://192.168.14.20/
     @RequiresApi(Build.VERSION_CODES.O)
     private fun preProcessedDb() {
-        DataBaseDownloading.initializePreProcessedDb(this, serverUrl = "http://192.168.14.20/", dbName = DatabaseType.FULL_DB, completion = object: InitializeDatabaseCompletion {
+        DataBaseDownloading.initializePreProcessedDb(this, serverUrl = "", dbName = DatabaseType.FULL_DB, completion = object: InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
 //                progressDialog.setTitle("Downloading database $progress%")
                 Log.e("onProgressChanged", "$progress")

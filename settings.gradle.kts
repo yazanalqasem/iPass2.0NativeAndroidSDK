@@ -18,7 +18,7 @@ dependencyResolutionManagement {
             url = uri("https://jitpack.io")
         }
         maven {
-            url =uri("https://maven.regulaforensics.com/RegulaDocumentReader/Beta")
+            url =uri("https://maven.regulaforensics.com/RegulaDocumentReader")
         }
 
     }
