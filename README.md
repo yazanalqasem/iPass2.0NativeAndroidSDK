@@ -33,7 +33,9 @@
 
 
 #### Updates in new version
--  Updated user liveness
+- Includes a ready-to-use database file for easier deployment and integration.
+- Now supports on-premise deployments, providing greater control and security.
+- Improved interface and performance for a more seamless and intuitive experience.
 
   
 #### Migration Guide
@@ -184,7 +186,7 @@ This type of database is not included in the initial app package but is instead 
 
 ### Available Databases
 
-- In the Pre-packaged Database, system allows you to choose between three types of databases. Currently this database only allows to scan Jordanian ID cards as well as passports from other countries.
+- In the Pre-packaged Database, system allows you to choose between three types of databases. 
 
 - **DataBaseDownloading.availableDataSources.basicJordan**
   - This database stores all types of documents for Jordan but only passports for other countries. It does not include authentication checks.
