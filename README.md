@@ -157,7 +157,7 @@ This type of database is not included in the initial app package but is instead 
 
  ----
 
-### Pre-packaged Database Implementation:
+### Pre-packaged Database Implementation
 ```kotlin
         DataBaseDownloading.initialization(this, object: InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
@@ -288,7 +288,7 @@ configProperties.needHologramDetection(value = true)
 - After the scanning process, the response can be obtained from getDocumentScannerData method.
 -----
 
-### Get Document Data :
+### Get Document Data
 
 This Method Returns data scanned from Documents.
 ```kotlin
