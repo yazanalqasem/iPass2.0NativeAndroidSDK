@@ -61,7 +61,7 @@
         implementation("com.github.yazanalqasem:iPass2.0NativeAndroidSDK:2.16")
         implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.16")
   ```
-  - If you are using the pre-packaged database implementation, please use the database from the [currently available databases](#pre-packaged-database-implementation).
+  - If you are using the pre-packaged database implementation, please use the database from the [available databases](#available-databases).
 
 # Overview
 AI-powered identity verification, eKYC, and
@@ -158,7 +158,7 @@ This type of database is not included in the initial app package but is instead 
 
  ----
 
-### Pre-packaged Database Implementation
+### Pre-packaged Database Implementation:
 ```kotlin
         DataBaseDownloading.initialization(this, object: InitializeDatabaseCompletion {
             override fun onProgressChanged(progress: Int) {
@@ -182,16 +182,17 @@ This type of database is not included in the initial app package but is instead 
 - If there is any error in the process it will return the status false and error message in error(String).
 - Replace http://192.168.19.421/ with your actual on-prem server URL if applicable.
 
+### Available Databases
 
 - In the Pre-packaged Database, system allows you to choose between three types of databases. Currently this database only allows to scan Jordanian ID cards as well as passports from other countries.
 
-- DataBaseDownloading.availableDataSources.basicJordan
+- **DataBaseDownloading.availableDataSources.basicJordan**
   - This database stores all types of documents for Jordan but only passports for other countries. It does not include authentication checks.
 
-  - DataBaseDownloading.availableDataSources.fullAuthJordan
+  - **DataBaseDownloading.availableDataSources.fullAuthJordan**
     - This database stores all types of documents for Jordan but only passports for other countries. It also includes authentication checks.
 
-  - DataBaseDownloading.availableDataSources.fullDb
+  - **DataBaseDownloading.availableDataSources.fullDb**
     - This database stores all types of documents for all countries. It does not include authentication checks.
 
 
