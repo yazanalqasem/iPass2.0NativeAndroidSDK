@@ -188,8 +188,8 @@ This type of database is not included in the initial app package but is instead 
 
 - In the Pre-packaged Database, system allows you to choose between three types of databases. 
 
-- **DataBaseDownloading.availableDataSources.basicJordan**
-  - This database stores all types of documents for Jordan but only passports for other countries. It does not include authentication checks.
+  - **DataBaseDownloading.availableDataSources.basicJordan**
+    - This database stores all types of documents for Jordan but only passports for other countries. It does not include authentication checks.
 
   - **DataBaseDownloading.availableDataSources.fullAuthJordan**
     - This database stores all types of documents for Jordan but only passports for other countries. It also includes authentication checks.
