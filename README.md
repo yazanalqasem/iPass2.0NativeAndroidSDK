@@ -162,23 +162,20 @@ This type of database is not included in the initial app package but is instead 
 
 ### Pre-packaged Database Implementation:
 ```kotlin
-        DataBaseDownloading.initialization(this, object: InitializeDatabaseCompletion {
-            override fun onProgressChanged(progress: Int) {
-                // get progress
-            }
+     DataBaseDownloading.initializePreProcessedDb(context = this, dbName = DatabaseType.FULL_DB, serverUrl = "http://192.168.19.421/", completion = object: InitializeDatabaseCompletion {
+        override fun onProgressChanged(progress: Int) {
+          //get progress
+        }
 
-            override fun onCompleted(
-                status: Boolean,
-                message: String?
-            ) {
-                if (status) {
-                    // Show message
-                } else {
-                    // Show error message
-                }
-            }
-
-        })
+        override fun onCompleted(
+          status: Boolean,
+          message: String?
+        ) {
+          if (status) {
+            //proceed to next step
+          }
+        }
+      })
 ```
 - In the onCompleted method, when the status returns true, you can start the next step.
 - If there is any error in the process it will return the status false and error message in error(String).
@@ -188,13 +185,13 @@ This type of database is not included in the initial app package but is instead 
 
 - In the Pre-packaged Database, system allows you to choose between three types of databases. 
 
-  - **DataBaseDownloading.availableDataSources.basicJordan**
+  - **DatabaseType.BASIC_JORDAN**
     - This database stores all types of documents for Jordan but only passports for other countries. It does not include authentication checks.
 
-  - **DataBaseDownloading.availableDataSources.fullAuthJordan**
+  - **DatabaseType.FULL_AUTH_JORDAN**
     - This database stores all types of documents for Jordan but only passports for other countries. It also includes authentication checks.
 
-  - **DataBaseDownloading.availableDataSources.fullDb**
+  - **DatabaseType.FULL_DB**
     - This database stores all types of documents for all countries. It does not include authentication checks.
 
 
@@ -208,21 +205,20 @@ configProperties.needHologramDetection(value = true)
 ### Dynamic Database Implementation:
 
  ```kotlin
-            DataBaseDownloading.initializeDynamicDb(context = this, serverUrl = "http://192.168.19.421/", completion = object: InitializeDatabaseCompletion {
-    override fun onProgressChanged(progress: Int) {
-//get progress
-    }
+ DataBaseDownloading.initializeDynamicDb(context = this, serverUrl = "http://192.168.19.421/", completion = object: InitializeDatabaseCompletion {
+     override fun onProgressChanged(progress: Int) {
+      //get progress
+     }
 
     override fun onCompleted(
         status: Boolean,
         message: String?
     ) {
         if (status) {
-    //proceed to next step
-}
+      //proceed to next step
+      }
     }
-
-})
+  })
 ```
 - Override function onProgressChanged can be used to track the downloading percentage.
 - Once the database is downloaded 100% and status returns true in onCompleed method, user can start the next step.
@@ -268,7 +264,7 @@ configProperties.needHologramDetection(value = true)
 - User can scan various types of documents.
 - Users can scan both the front and back sides of documents, but it totally depends on the document type.
 ```kotlin
-        iPassSDKManger.startScanningProcess(
+iPassSDKManger.startScanningProcess(
     requireContext(),
     email,
     userToken,
@@ -296,7 +292,7 @@ configProperties.needHologramDetection(value = true)
 
 This Method Returns data scanned from Documents.
 ```kotlin
-      iPassSDKManger.getDocumentScannerData(requireContext(), apptoken, object :
+  iPassSDKManger.getDocumentScannerData(requireContext(), apptoken, object :
       ResultListener<TransactionDetailResponse> {
           override fun onSuccess(response: TransactionDetailResponse?) {
             if (response?.Apistatus!!) {
