@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.nfc.NfcManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.regula.documentreader.api.DocumentReader
@@ -66,7 +65,6 @@ object DocumentReaderData {
                     DocumentReader.Instance()
                         .startRFIDReader(context!!, object : IRfidReaderCompletion() {
                             override fun onChipDetected() {
-                                Log.d("Rfid", "Chip detected")
                             }
 
                             override fun onProgress(notification: DocumentReaderNotification) {
@@ -74,7 +72,6 @@ object DocumentReaderData {
                             }
 
                             override fun onRetryReadChip(exception: DocReaderRfidException) {
-                                Log.d("Rfid", "Retry with error: " + exception.errorCode)
                             }
 
                             override fun onCompleted(
@@ -140,11 +137,11 @@ object DocumentReaderData {
         val loword = code and 0x0000FFFF
         when (hiword) {
             eRFID_NotificationCodes.RFID_NOTIFICATION_PCSC_READING_DATAGROUP -> if (value == 0) {
-                Log.d("Rfid", "Current group: " + String.format(
-                    context?.getString(com.regula.documentreader.api.R.string.strReadingRFIDDG)!!,
-                    eRFID_DataFile_Type.getTranslation(
-                        context, loword
-                    )))
+//                Log.d("Rfid", "Current group: " + String.format(
+//                    context?.getString(com.regula.documentreader.api.R.string.strReadingRFIDDG)!!,
+//                    eRFID_DataFile_Type.getTranslation(
+//                        context, loword
+//                    )))
             }
         }
     }

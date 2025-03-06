@@ -170,7 +170,7 @@ object iPassSDKManger {
 
                 this.rawResult = message
                 var ip = ""
-                val source = "Android v1.0.31"
+                val source = "Android v2.16"
                 CoroutineScope(Dispatchers.IO).launch {
                     ip = getPublicIpAddress().toString()
                 }

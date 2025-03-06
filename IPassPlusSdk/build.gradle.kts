@@ -111,7 +111,7 @@ project.afterEvaluate {
                 groupId = "com.sdk.ipassplussdk"
 
                 artifactId = "iPass2.0NativeAndroidSDK"
-                version = "1.0.31"
+                version = "2.16"
             }
         }
     }

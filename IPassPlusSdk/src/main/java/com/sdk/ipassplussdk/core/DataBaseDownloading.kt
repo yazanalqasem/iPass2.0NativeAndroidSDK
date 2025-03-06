@@ -2,7 +2,6 @@ package com.sdk.ipassplussdk.core
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.sdk.ipassplussdk.R
 import com.sdk.ipassplussdk.resultCallbacks.InitializeDatabaseCompletion

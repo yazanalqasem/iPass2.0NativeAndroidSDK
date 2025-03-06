@@ -1,6 +1,5 @@
 package com.sdk.ipassplussdk.core
 
-import android.util.Log
 import com.regula.documentreader.api.DocumentReader
 import com.regula.documentreader.api.params.AuthenticityParams
 import com.regula.documentreader.api.params.LivenessParams
