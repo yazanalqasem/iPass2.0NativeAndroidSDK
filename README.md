@@ -18,8 +18,8 @@
   - [Integrate Package into the App](#integrate-package-into-the-app)
   - [Permissions](#permissions)
   - [Add NFC Compatibility](#add-nfc-compatibility)
-  - [Initialize Database](#initialize-database)
-  - [Get User Login Token](#get-user-login-token)
+  - [Initialize Database and On-Prem Server setup](#initialize-database-and-on-prem-server-setup)
+  - [Getting the User Login Token](#getting-the-user-login-token)
   - [Get Supported Flows](#get-supported-flows)
   - [Document Scanning](#document-scanning)
   - [Get Document Data](#get-document-data)
@@ -34,6 +34,33 @@
 
 #### Updates in new version
 -  Updated user liveness
+
+  
+#### Migration Guide
+- To upgrade from earlier iPass versions to version 2.16, follow these steps...
+
+  - Modify the settings.gradle file by replacing it with the following code snippet:
+    ```gradle
+          dependencyResolutionManagement {
+          repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+          repositories {
+              google()
+              mavenCentral()
+              maven {
+                  url = uri("https://jitpack.io")
+              }
+              maven {
+                  url =uri("https://maven.regulaforensics.com/RegulaDocumentReader")
+              }
+          }
+      }
+
+  - Update the dependency versions in the build.gradle file as follows:
+
+  ```gradle
+        implementation("com.github.yazanalqasem:iPass2.0NativeAndroidSDK:2.16")
+        implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.16")
+  ```
 
 # Overview
 AI-powered identity verification, eKYC, and
