@@ -61,6 +61,7 @@
         implementation("com.github.yazanalqasem:iPass2.0NativeAndroidSDK:2.16")
         implementation("com.github.yazanalqasem:iPass2.0CoreAndroidSDK:2.16")
   ```
+  - If you are using the pre-packaged database implementation, please use the database from the [currently available databases](#pre-packaged-database-implementation).
 
 # Overview
 AI-powered identity verification, eKYC, and
